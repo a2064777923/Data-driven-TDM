@@ -311,3 +311,33 @@ isSouthChinaSea:false,//默认不显示南海，改为true可显示南海
 - **強調色2**: 淡橙色 (RGBA: 255, 204, 153, 0.8)
 
 這些配色方案應該能為您的大屏提供一種自然、清新的外觀，同時保持良好的對比度和可讀性。
+
+### Jenkins 構建命令
+```shell
+echo "开始构建"
+node -v
+npm -v
+npm install --registry=https://registry.npmmirror.com
+npm run build
+#进入到打包目录
+cd dist
+#删除上次打包生成的压缩文件
+rm -rf *.tar.gz
+#把生成的项目打包成压缩包方便传输到远程服务器
+tar -zcvf `date +%Y-%m-%d-%H-%M-%S`.tar.gz *
+#回到上层工作目录
+cd ../
+echo "构建结束"
+
+```
+構建後操作:
+```shell
+#进入远程服务器的目录
+cd /www/wwwroot/tdm_frontend
+#找到新的压缩包
+tar -zxvf *.tar.gz -C ./
+echo ">>>移除*.tar.gz"
+rm -rf *.tar.gz
+#发布完成
+echo "发布完成"
+```

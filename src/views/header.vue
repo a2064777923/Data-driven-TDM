@@ -12,7 +12,7 @@ const dateData = reactive<DateDataType>({
 });
 
 const { setSettingShow} =useSettingStore()
-const weekday= ["周日", "周一", "周二", "周三", "周四", "周五", "周六"]
+const weekday= ["Sun", "Mon", "Tue", "Wed", "Thur", "Fir", "Sat"]
 const timeFn = () => {
   dateData.timing = setInterval(() => {
     dateData.dateDay = dayjs().format("YYYY-MM-DD hh : mm : ss");
@@ -36,7 +36,7 @@ timeFn()
       {{ dateData.dateYear }} {{ dateData.dateWeek }} {{ dateData.dateDay }}
 
       <div class="setting_icon"   @click="setSettingShow(true)">
-          <img src="@/assets/img/headers/setting.png" alt="设置">
+          <img src="@/assets/img/headers/setting.png" alt="設置">
       </div>
     </div>
   </div>
@@ -114,9 +114,9 @@ timeFn()
     width: 100%;
     background: linear-gradient(
       92deg,
-      #0072ff 0%,
-      #00eaff 48.8525390625%,
-      #01aaff 100%
+      #225522 0%,
+      #388c38 48.8525390625%,
+      #255e25 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
