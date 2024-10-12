@@ -1,19 +1,30 @@
 <script setup lang="ts">
-import { ref, reactive, nextTick } from "vue";
+import { ref, reactive, watch, nextTick ,onMounted,onUnmounted} from "vue";
 import { centerMap, GETNOBASE } from "@/api";
-import { registerMap, getMap } from "echarts/core";
+import * as charts from "echarts/core";
 import { optionHandle, regionCodes } from "./center.map";
 import BorderBox13 from "@/components/datav/border-box-13";
 import { ElMessage } from "element-plus";
 
 import type { MapdataType } from "./center.map";
+import 'echarts-extension-amap';
+import AMapLoader from '@amap/amap-jsapi-loader'; //動態加載Amap api
+import type{global} from './global.d';
 
+import { CanvasRenderer } from 'echarts/renderers';
+import { install as AMapComponent, AMapComponentOption} from 'echarts-extension-amap/export';
+import { TooltipComponent, TitleComponentOption} from 'echarts/components';
+import ECharts from "vue-echarts";
+import * as echarts from 'echarts';
+
+
+// 使用组合式API
 const option = ref({});
-const code = ref("Macau"); //china 代表中国 其他地市是行政编码
+const code = ref("Macau");
 
-withDefaults(
+// 使用默认值
+const props = withDefaults(
   defineProps<{
-    // 结束数值
     title: number | string;
   }>(),
   {
@@ -21,15 +32,72 @@ withDefaults(
   }
 );
 
+let chart: any = null;
+let map: any = null;
+
+// 组件挂载时加载地图
+onMounted(async () => {
+  try {
+    const AMap = await AMapLoader.load({
+      key: "b13953f0423806b6565ff927a6cd84a5",
+      version: "2.0",
+      plugins: ["AMap.Scale"],
+    });
+
+    await getData(code.value);
+    initializeMap();
+
+    map = new AMap.Map('container', {
+      resizeEnable: true,
+      mapStyle: "amap://styles/light"
+    });
+
+  } catch (error) {
+    console.error("地图加载失败", error);
+  }
+});
+
+// 组件卸载时销毁地图实例
+onUnmounted(() => {
+  if (map) {
+    map.destroy();
+  }
+});
+
+// 更新地图数据
+const updateMapData = (regionCode: string, list: any) => {
+  option.value = optionHandle(regionCode, list, []);
+};
+
+// 初始化地图
+const initializeMap = () => {
+  if (!chart) {
+    const mapElement = document.getElementById("macau");
+    if (mapElement) {
+      chart = echarts.init(mapElement);
+      chart.setMapStyle("amap://styles/light");
+    }
+  }
+  chart.setOption(option.value);
+};
+
+// 监听option变化
+watch(option, (newOption) => {
+  if (chart) {
+    chart.setOption(newOption);
+  }
+});
+
+// 数据处理
 const dataSetHandle = async (regionCode: string, list: object[]) => {
-  const geojson: any = await getGeojson(regionCode);
-  let cityCenter: any = {};
-  let mapData: MapdataType[] = [];
-  //获取当前地图每块行政区中心点
+  const geojson = await getGeojson(regionCode);
+  const cityCenter: Record<string, any> = {};
+  const mapData: MapdataType[] = [];
+
   geojson.features.forEach((element: any) => {
     cityCenter[element.properties.name] = element.properties.centroid || element.properties.center;
   });
-  //当前中心点如果有此条数据中心点则赋值x，y当然这个x,y也可以后端返回进行大点，前端省去多行代码
+
   list.forEach((item: any) => {
     if (cityCenter[item.name]) {
       mapData.push({
@@ -38,37 +106,36 @@ const dataSetHandle = async (regionCode: string, list: object[]) => {
       });
     }
   });
-  await nextTick();
 
+  await nextTick();
   option.value = optionHandle(regionCode, list, mapData);
 };
 
+// 获取数据
 const getData = async (regionCode: string) => {
-  centerMap({ regionCode: regionCode })
-    .then((res) => {
-      console.log("地圖", res);
-      if (res.success) {
-        dataSetHandle(res.data.regionCode, res.data.dataList);
-      } else {
-        ElMessage.error(res.msg);
-      }
-    })
-    .catch((err) => {
-      ElMessage.error(err);
-    });
-};
-const getGeojson = (regionCode: string) => {
-  return new Promise<boolean>(async (resolve) => {
-    let mapjson = getMap(regionCode);
-    if (mapjson) {
-      mapjson = mapjson.geoJSON;
-      resolve(mapjson);
+  try {
+    const res = await centerMap({ regionCode });
+    if (res.success) {
+      await dataSetHandle(res.data.regionCode, res.data.dataList);
     } else {
-      mapjson = await GETNOBASE(`./map-geojson/${regionCode}.json`).then((data) => data);
+      ElMessage.error(res.msg);
+    }
+  } catch (err:any) {
+    ElMessage.error(err);
+  }
+};
+
+// 获取GeoJSON
+const getGeojson = (regionCode: string): Promise<any> => {
+  return new Promise(async (resolve) => {
+    let mapjson = charts.getMap(regionCode);
+    if (mapjson) {
+      resolve(mapjson.geoJSON);
+    } else {
+      mapjson = await GETNOBASE(`./map-geojson/${regionCode}.json`);
       code.value = regionCode;
-      registerMap(regionCode, {
-		
-        geoJSON: mapjson as string,
+      charts.registerMap(regionCode, {
+        geoJSON: mapjson,
         specialAreas: {},
       });
       resolve(mapjson);
@@ -76,21 +143,22 @@ const getGeojson = (regionCode: string) => {
   });
 };
 
-// 別看他只有短短的一行，其實它是命運的開關，世界的主宰
-getData(code.value);
-
+// 处理地图点击事件
 const mapClick = (params: any) => {
-  // console.log(params);
-  let xzqData = regionCodes[params.name];
+  const xzqData = regionCodes[params.name];
   if (xzqData) {
     getData(xzqData.adcode);
   } else {
     window["$message"].warning("暂无下级地市");
   }
 };
+
+// 初始化数据
+getData(code.value);
 </script>
 
 <template>
+
   <div class="centermap">
     <div class="maptitle">
       <div class="zuo"></div>
@@ -101,6 +169,7 @@ const mapClick = (params: any) => {
       <BorderBox13>
         <div class="macau" @click="getData('Macau')" v-if="code !== 'Macau'">全澳</div>
         <v-chart
+		  id="macua"
           class="chart"
           :option="option"
           ref="centerMapRef"
@@ -127,7 +196,7 @@ const mapClick = (params: any) => {
       font-size: 28px;
       font-weight: 900;
       letter-spacing: 6px;
-      background: linear-gradient(92deg, #0072ff 0%, #00eaff 48.8525390625%, #01aaff 100%);
+      background: linear-gradient(92deg, #212a1d 0%, #5a7444 48.8525390625%, #394d28 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 0 10px;

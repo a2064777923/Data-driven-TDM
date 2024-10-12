@@ -58,21 +58,44 @@ export const optionHandle = (regionCode: string,
                 color: "#fff",
             },
         },
+		amap: {
+		    center: [113.5528956,22.20787],
+		    resizeEnable: true,
+		    mapStyle: "amap://styles/grey",//地图样式黑色
+		    rotation: 10,
+		    zoom: 13,//缩放
+		    viewMode: "3D",//是否启用3d地图
+		    pitch: 35, //视角高度
+		    skyColor: "#33216a",
+			renderOnMoving: true,
+			    // the zIndex of echarts layer for AMap, default value is 2000.
+			    // deprecated since v1.9.0, use `echartsLayerInteractive` instead.
+			    // echartsLayerZIndex: 2019,
+			    // whether echarts layer is interactive. Default value is true
+			    // supported since v1.9.0
+			echartsLayerInteractive: true,
+			largeMode: false,
+			    // whether to return map camera state in `amaproam` event.
+			    // supported since v1.10.0
+			returnMapCameraState: true
+		},
         geo: {
             map: regionCode,
+			coordinateSystem: "amap",
             roam: true, // 缩放和移动
             selectedMode: 'single', //是否允许选中多个区域
             zoom: zoom,
             top: top,
             // aspectScale: 0.78,
-            show: true,
+            show: false,
         },
         series: [
             {
                 name: "MAP",
                 type: "map",
                 map: regionCode,
-				coordinateSystem: "geo",
+				//coordinateSystem: "geo",
+				coordinateSystem: "amap",
 				roam: true,
 				isSouthChinaSea:true,
                 // aspectScale: 0.78,
