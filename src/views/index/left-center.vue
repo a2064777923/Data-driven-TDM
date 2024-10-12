@@ -1,16 +1,20 @@
 <script setup lang="ts">
 import { ref, reactive } from "vue";
 import { graphic } from "echarts/core";
-import { countUserNum } from "@/api";
+import { countUserNum, hotelCount } from "@/api";
 import {ElMessage} from "element-plus"
 
-let colors = ["#0BFC7F", "#A0A0A0", "#F48C02", "#F4023C"];
+let colors = ["#aa55ff", "#ff5500", "#aa5500", "#aa557f"];
 const option = ref({});
 const state = reactive({
-  lockNum: 0,
-  offlineNum: 0,
-  onlineNum: 0,
-  alarmNum: 0,
+  twoStarHotelNum: 0,
+  threeStarApartmentHotelNum: 0,
+  threeStarHotel: 0,
+  fourStarApartmentHotel: 0,
+  fourStarHotel:0,
+  fiveStarDeluxeHotel: 0,
+  fiveStarHotel: 0,
+  economicalAccommodationEstablishments: 0,
   totalNum: 0,
 });
 const echartsGraphic = (colors: string[]) => {
@@ -19,16 +23,21 @@ const echartsGraphic = (colors: string[]) => {
     { offset: 1, color: colors[1] },
   ]);
 };
+//請求獲取參數的函數
 const getData = () => {
-  countUserNum().then((res) => {
-    console.log("左中--用户总览",res);
+  hotelCount().then((res) => {
+    console.log("左中--酒店總覽",res);
     if (res.success) {
-      state.lockNum = res.data.lockNum;
-      state.offlineNum = res.data.offlineNum;
-      state.onlineNum = res.data.onlineNum;
-      state.totalNum = res.data.totalNum;
-      state.alarmNum = res.data.alarmNum;
+      state.twoStarHotelNum = res.data["2-star Hotel"];
+      state.threeStarApartmentHotelNum = res.data["3-star Apartment Hotel"];
+      state.threeStarHotel = res.data["3-star Hotel"];
+	  state.fourStarApartmentHotel = res.data["4-star Apartment Hotel"];
+	  state.fourStarHotel = res.data["4-star Hotel"];
+	  state.fiveStarDeluxeHotel = res.data["5-star Deluxe Hotel"];
+	  state.fiveStarHotel = res.data["5-star Hotel"];
+      state.totalNum = res.data["total"];
       setOption();
+	  console.log("getdata"+ state)
     }else{
       ElMessage.error(res.msg)
     }
@@ -42,7 +51,7 @@ const setOption = () => {
     title: {
       top: "center",
       left: "center",
-      text: [`{value|${state.totalNum}}`, "{name|总数}"].join("\n"),
+      text: [`{value|${state.totalNum}}`, "{name|Total}"].join("\n"),
       textStyle: {
         rich: {
           value: {
@@ -69,7 +78,7 @@ const setOption = () => {
     },
     series: [
       {
-        name: "用户总览",
+        name: "Hotel Overview",
         type: "pie",
         radius: ["40%", "70%"],
         // avoidLabelOverlap: false,
@@ -90,11 +99,11 @@ const setOption = () => {
               lineHeight: 26,
             },
             c: {
-              color: "#31ABE3",
+              color: "#b0d021",
               fontSize: 14,
             },
             per: {
-              color: "#31ABE3",
+              color: "#8cb41d",
               fontSize: 14,
             },
           },
@@ -116,33 +125,54 @@ const setOption = () => {
         },
         data: [
           {
-            value: state.onlineNum,
-            name: "在线",
+            value: state.twoStarHotelNum,
+            name: "2-star",
             itemStyle: {
               color: echartsGraphic(["#0BFC7F", "#A3FDE0"]),
             },
           },
           {
-            value: state.offlineNum,
-            name: "离线",
+            value: state.threeStarApartmentHotelNum,
+            name: "3-star Apartment",
             itemStyle: {
-              color: echartsGraphic(["#A0A0A0", "#DBDFDD"]),
+              color: echartsGraphic(["#aa55ff", "#aa557f"]),
             },
           },
           {
-            value: state.lockNum,
-            name: "锁定",
+            value: state.threeStarHotel,
+            name: "3-star",
             itemStyle: {
               color: echartsGraphic(["#F48C02", "#FDDB7D"]),
             },
           },
           {
-            value: state.alarmNum,
-            name: "异常",
+            value: state.fourStarHotel,
+            name: "4-star",
             itemStyle: {
-              color: echartsGraphic(["#F4023C", "#FB6CB7"]),
+              color: echartsGraphic(["#ff5500", "#aa5500"]),
             },
           },
+		  {
+		    value: state.fourStarApartmentHotel,
+		    name: "4-star Apartment",
+		    itemStyle: {
+		      color: echartsGraphic(["#aa5500", "#aa557f"]),
+		    },
+		  },
+		  {
+		    value: state.fiveStarDeluxeHotel,
+		    name: "5-star Deluxe",
+		    itemStyle: {
+		      color: echartsGraphic(["#aa55ff", "#FB6CB7"]),
+		    },
+		  },
+		  {
+		    value: state.fiveStarHotel,
+		    name: "5-star",
+		    itemStyle: {
+		      color: echartsGraphic(["#ff5500", "#FB6CB7"]),
+		    },
+		  },
         ],
       },
     ],

@@ -13,13 +13,14 @@ const UtilVar:UtilVarType = {
 
 }
 const runtimeType:any = {
-
+	//生產環境
     production: () => {
 
     },
-    //开发环境
+    //開發環境
     development: () => {
-        // UtilVar.baseUrl= `http://www.xihuanmantou.cn:19527`
+        // UtilVar.baseUrl= `http://www.macautourism.top:19527`
+		UtilVar.baseUrl='http://127.0.0.1:5000' //本地後端地址
 
     },
     hash:()=>{
@@ -29,4 +30,5 @@ const runtimeType:any = {
 }
 // console.log(import.meta.env)
 runtimeType[import.meta.env.MODE]&&runtimeType[import.meta.env.MODE]()
+console.log(`Running in mode: ${import.meta.env.MODE}`);
 export default UtilVar

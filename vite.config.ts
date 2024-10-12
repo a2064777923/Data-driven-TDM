@@ -32,7 +32,14 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
       open: false,
       strictPort: false,
       // proxy: {}
-    },
+	  proxy: {
+	          '/api': {
+	            target: 'http://127.0.0.1:5000',
+	            changeOrigin: true,
+	            rewrite: (path) => path.replace(/^\/api/, ''),
+	          },
+			}
+	},
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),

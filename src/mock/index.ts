@@ -8,6 +8,6 @@ const mocks = [...MockIndex];
 export function mockXHR() {
     let i: MockParams;
     for (i of mocks) {
-        Mock.mock(new RegExp(i.url), i.type || "get", i.response);
+        //Mock.mock(new RegExp(i.url), i.type || "get", i.response);
     }
 }

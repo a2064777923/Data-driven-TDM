@@ -62,14 +62,14 @@ axios.interceptors.response.use(
     console.log("error", error);
     let err = {
       success: false,
-      msg: "未知异常，请联系管理员！",
+      msg: "Unknowen execption！",
       code: 400,
     };
     if (JSON.stringify(error).indexOf("Network Error") != -1) {
-      err.msg = "网络错误或服务错误！";
+      err.msg = "Network Error！";
     }
     if (error.message == "canceled") {
-      err.msg = "取消请求";
+      err.msg = "Demand Canceled";
       err.code = 488;
     }
     // console.log(err);

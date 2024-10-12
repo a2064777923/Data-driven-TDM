@@ -20,7 +20,7 @@ import RightBottom from "./right-bottom.vue";
       <ItemWrap class="contetn_left-top contetn_lr-item" title="设备总览">
         <LeftTop />
       </ItemWrap>
-      <ItemWrap class="contetn_left-center contetn_lr-item" title="用户总览">
+      <ItemWrap class="contetn_left-center contetn_lr-item" title="Hotel View">
         <LeftCenter />
       </ItemWrap>
       <ItemWrap

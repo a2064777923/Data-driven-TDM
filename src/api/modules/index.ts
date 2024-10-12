@@ -9,6 +9,8 @@ const indexUrl=  {
     'rightTop':"/bigscreen/alarmNum", //报警次数
     'rightBottom':'/bigscreen/rightBottom',//右下 
     'rightCenter':'/bigscreen/ranking',// 报警排名
+	
+	"hotelCount":"/api/hotels/getHotelsCount",//獲取酒店數量統計
 }
 
 export default indexUrl
@@ -51,4 +53,9 @@ export const ranking=(param:any={})=>{
 /**右下--设备状态 */
 export const rightBottom=(param:any={})=>{
     return GET(indexUrl.rightBottom,param)
+}
+
+/**左中--酒店統計 */
+export const hotelCount=(param:any={})=>{
+	return GET(indexUrl.hotelCount,param)
 }

@@ -1,11 +1,3 @@
-/*
- * @Author: daidai
- * @Date: 2021-12-23 11:18:37
-
- * @LastEditTime: 2024-03-28 16:07:20
- * @FilePath: \web-pc-svn\src\api\modules\index.js
- */
-
 import {GETNOBASE} from "./api";
-export * from "./modules/index"
+export * from "./modules/index" //這裏暴露出所有接口
 export {GETNOBASE}
