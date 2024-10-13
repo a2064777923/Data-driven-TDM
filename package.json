@@ -9,7 +9,6 @@
     "preview": "vite preview --port 4173",
     "build-only": "vite build",
     "type-check": "vue-tsc --noEmit",
-	"serve": "vue-cli-service serve",
   },
   "dependencies": {
     "@amap/amap-jsapi-loader": "^1.0.1",
