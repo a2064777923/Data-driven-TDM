@@ -87,7 +87,7 @@ export const optionHandle = (regionCode: string,
             zoom: zoom,
             top: top,
             // aspectScale: 0.78,
-            show: false,
+            show: true,
         },
         series: [
             {

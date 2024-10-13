@@ -1,43 +1,26 @@
 import {GET,POST,FILE,FILEPOST,PUT,GETNOBASE} from "../api";
 const indexUrl=  {
-    'leftTop':'/bigscreen/countDeviceNum',//左上
-    'leftCenter':'/bigscreen/countUserNum',//左中
-    "centerMap":"/bigscreen/centerMap",
-    "centerBottom":"/bigscreen/installationPlan",
+    "centerMap":"/api/map/getCenterMap",
+    
 
     'leftBottom':"/bigscreen/leftBottom", //坐下
     'rightTop':"/bigscreen/alarmNum", //报警次数
-    'rightBottom':'/bigscreen/rightBottom',//右下 
-    'rightCenter':'/bigscreen/ranking',// 报警排名
+    
+    'rightBottom':'/api/tourist/getRankingData',// 出行模擬數據
 	
-	"hotelCount":"/api/hotels/getHotelsCount",//獲取酒店數量統計
+	"centerBottom":"/api/tourist/getCenterBottomMock",//中央底部模擬數據
+	
+	"hotelCount":"/api/hotels/getHotelsCount",//左中 獲取酒店數量統計
+	"mainlandTourist": "/api/tourist/getMainlandTourist",//左上 獲取內地旅客的統計數據
+	"festivalEvents": "/api/event/getFestivalEvents", //獲取節日盛事
+	"averageLengthStay": "/api/tourist/getAverageLengthStay", //獲取平均逗留時間
+	"enterExitMock":"/api/tourist/getEnterExitMock" //出入境模擬
 }
 
 export default indexUrl
-
-/**左上--设备内总览 */
-export const countDeviceNum=(param:any={})=>{
-    return GET(indexUrl.leftTop,param)
-}
-
-/**左中--用户总览 */
-export const countUserNum=(param:any={})=>{
-    return GET(indexUrl.leftCenter,param)
-}
-
-/**左下--设备提醒 */
-export const leftBottom=(param:any={})=>{
-    return GET(indexUrl.leftBottom,param)
-}
-
 /**中上--地图 */
 export const centerMap=(param:any={})=>{
     return GET(indexUrl.centerMap,param)
-}
-
-/**中下--安装计划 */
-export const installationPlan=(param:any={})=>{
-    return GET(indexUrl.centerBottom,param)
 }
 
 /**右上--报警次数 */
@@ -45,17 +28,38 @@ export const alarmNum=(param:any={})=>{
     return GET(indexUrl.rightTop,param)
 }
 
-/**右中--报警排名 */
+/**右下--出行模擬 */
 export const ranking=(param:any={})=>{
-    return GET(indexUrl.rightCenter,param)
-}
-
-/**右下--设备状态 */
-export const rightBottom=(param:any={})=>{
     return GET(indexUrl.rightBottom,param)
 }
+
 
 /**左中--酒店統計 */
 export const hotelCount=(param:any={})=>{
 	return GET(indexUrl.hotelCount,param)
+}
+
+/**左上--內地旅客統計分析 */
+export const getMainlandTourist=(param:any={})=>{
+	return GET(indexUrl.mainlandTourist,param)
+}
+
+/**左下--節日盛事 */
+export const getFestivalEvents=(param:any={})=>{
+	return GET(indexUrl.festivalEvents,param)
+}
+
+/**中下--模擬數據 */
+export const getCenterBottomMock=(param:any={})=>{
+    return GET(indexUrl.centerBottom,param)
+}
+
+/**右上--平均逗留時間*/
+export const getAverageStayTime=(param: any={})=>{
+	return GET(indexUrl.averageLengthStay,param)
+}
+
+/**右中--出入境*/
+export const getEnterExitMock=(param: any={})=>{
+	return GET(indexUrl.enterExitMock,param)
 }

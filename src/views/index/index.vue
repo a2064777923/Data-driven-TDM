@@ -17,7 +17,7 @@ import RightBottom from "./right-bottom.vue";
         <div class="item">实时监测</div>
         <div class="item">统计分析</div>
       </div> -->
-      <ItemWrap class="contetn_left-top contetn_lr-item" title="设备总览">
+      <ItemWrap class="contetn_left-top contetn_lr-item" title="2024 Mainland Tourist">
         <LeftTop />
       </ItemWrap>
       <ItemWrap class="contetn_left-center contetn_lr-item" title="Hotel View">
@@ -25,7 +25,7 @@ import RightBottom from "./right-bottom.vue";
       </ItemWrap>
       <ItemWrap
         class="contetn_left-bottom contetn_lr-item"
-        title="设备提醒"
+        title="Festival Events"
         style="padding: 0 10px 16px 10px"
       >
         <LeftBottom />
@@ -33,22 +33,22 @@ import RightBottom from "./right-bottom.vue";
     </div>
     <div class="contetn_center">
       <CenterMap class="contetn_center_top" title="Macau Map" />
-      <ItemWrap class="contetn_center-bottom" title="Population">
+      <ItemWrap class="contetn_center-bottom" title="不知道搞甚麼隨便用Mock數據畫個圖">
         <CenterBottom />
       </ItemWrap>
     </div>
     <div class="contetn_right">
-      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="报警次数">
+      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="Visitors Average Stay">
         <RightTop />
       </ItemWrap>
       <ItemWrap
         class="contetn_left-bottom contetn_lr-item"
-        title="报警排名(TOP8)"
+        title="Enter & Exit"
         style="padding: 0 10px 16px 10px"
       >
         <RightCenter />
       </ItemWrap>
-      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="数据统计图 ">
+      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="也是亂搞的 ">
         <RightBottom />
       </ItemWrap>
     </div>

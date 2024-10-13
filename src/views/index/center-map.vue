@@ -196,7 +196,7 @@ getData(code.value);
       font-size: 28px;
       font-weight: 900;
       letter-spacing: 6px;
-      background: linear-gradient(92deg, #212a1d 0%, #5a7444 48.8525390625%, #394d28 100%);
+      background: linear-gradient(92deg, #2e4744 0%, #4f7472 48.8525390625%, #284d42 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin: 0 10px;

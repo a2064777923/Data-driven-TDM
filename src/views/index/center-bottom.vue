@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import { ref, reactive, onMounted, nextTick } from "vue";
-import { installationPlan } from "@/api";
+import { getCenterBottomMock } from "@/api";
 import { graphic } from "echarts/core";
 import { ElMessage } from "element-plus";
 
 const option = ref({});
 const getData = () => {
-  installationPlan()
+  getCenterBottomMock()
     .then((res) => {
-      console.log("中下--安装计划", res);
+      console.log("中下--模擬數據", res);
       if (res.success) {
         setOption(res.data);
       } else {
@@ -32,14 +32,14 @@ const setOption = async (newData: any) => {
         color: "#FFF",
       },
       formatter: function (params: any) {
-        // 添加单位
+        // 添加區域
         var result = params[0].name + "<br>";
         params.forEach(function (item: any) {
           if (item.value) {
-            if (item.seriesName == "安装率") {
+            if (item.seriesName == "阻塞率") {
               result += item.marker + " " + item.seriesName + " : " + item.value + "%</br>";
             } else {
-              result += item.marker + " " + item.seriesName + " : " + item.value + "个</br>";
+              result += item.marker + " " + item.seriesName + " : " + item.value + "架</br>";
             }
           } else {
             result += item.marker + " " + item.seriesName + " :  - </br>";
@@ -49,7 +49,7 @@ const setOption = async (newData: any) => {
       },
     },
     legend: {
-      data: ["已安装", "计划安装", "安装率"],
+      data: ["可容車輛", "現時車輛", "阻塞率"],
       textStyle: {
         color: "#B4B4B4",
       },
@@ -99,7 +99,7 @@ const setOption = async (newData: any) => {
     ],
     series: [
       {
-        name: "已安装",
+        name: "現時車輛",
         type: "bar",
         barWidth: 10,
         itemStyle: {
@@ -112,7 +112,7 @@ const setOption = async (newData: any) => {
         data: newData.barData,
       },
       {
-        name: "计划安装",
+        name: "可容車輛",
         type: "bar",
         barGap: "-100%",
         barWidth: 10,
@@ -128,7 +128,7 @@ const setOption = async (newData: any) => {
         data: newData.lineData,
       },
       {
-        name: "安装率",
+        name: "阻塞率",
         type: "line",
         smooth: true,
         showAllSymbol: true,

@@ -114,9 +114,9 @@ timeFn()
     width: 100%;
     background: linear-gradient(
       92deg,
-      #225522 0%,
-      #388c38 48.8525390625%,
-      #255e25 100%
+      #07a2a2 0%,
+      #13f4e5 48.8525390625%,
+      #22a19d 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
