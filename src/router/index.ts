@@ -3,7 +3,8 @@ import type {RouteRecordRaw} from "vue-router"
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    redirect: '/index',
+	//component: () => import('@/views/HomeView.vue'),
+    redirect: 'home/index',
   },
   {
     path: '/home',
@@ -11,20 +12,25 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/HomeView.vue'),
     children:[
       {
-        path: '/index',
+        path: 'index',
         name: 'index',
         component: () => import('@/views/index/index.vue'),
       }
     ]
   },
+  {
+	  path:'/powerbi',
+	  name: 'powerbi',
+	  component:() => import('@/views/powerBI.vue'),
+  }
 ]
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes,
 })
-
+/*
 router.beforeEach((to, from, next) => {
   next();
 })
-
+*/
 export default router

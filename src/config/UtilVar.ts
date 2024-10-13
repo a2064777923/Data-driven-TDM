@@ -15,6 +15,7 @@ const UtilVar:UtilVarType = {
 const runtimeType:any = {
 	//生產環境
     production: () => {
+		UtilVar.baseUrl='http://83.229.126.125:8000'
 
     },
     //開發環境

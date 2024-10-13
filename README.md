@@ -16,11 +16,9 @@
 
 **项目展示** 
 
-![项目展示](https://www.daidaibg.com/bigscreen/a-img/home.png)
-
 ### 项目预览地址
 
-[https://www.daidaibg.com/bigscreen-vue3](https://www.daidaibg.com/bigscreen-vue3)
+[https://www.macautourism.top/](https://www.macautourism.top/)
 
 ### 项目仓库地址
 
@@ -37,18 +35,6 @@
 ###  滚动设置，自适应设置 
 
 项目中可以进行滚动配置，内容是否滚动
-
-点击右上角设置按钮
-![设置](https://www.daidaibg.com/bigscreen/a-img/setting.png)
-
-
-
-可以进行以下配置，可以自行代码中进行修改或增加配置
-
-
-
-![在这里插入图片描述](https://www.daidaibg.com/bigscreen/a-img/setting2.png)
-
 
 
 ##  2、主要文件介绍
