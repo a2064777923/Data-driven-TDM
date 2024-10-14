@@ -15,7 +15,7 @@ const UtilVar:UtilVarType = {
 const runtimeType:any = {
 	//生產環境
     production: () => {
-		UtilVar.baseUrl='https://83.229.126.125:80'
+		UtilVar.baseUrl='https://backend.macautourism.top'
 
     },
     //開發環境
