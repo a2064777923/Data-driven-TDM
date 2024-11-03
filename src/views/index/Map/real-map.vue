@@ -29,7 +29,7 @@
 	      '休息区': '#ffaa00',
 	      '酒店': '#aa55ff'
 	    };
-	    return this.selectedTypes.includes(type) ? colors[type] : 'grey';
+	    return selectedTypes.value.includes(type) ? colors[type] : 'grey';
 	  }
 
 	const waterFountains = [{
