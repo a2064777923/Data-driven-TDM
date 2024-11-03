@@ -53,10 +53,8 @@ const setOption = () =>{
 		const gates = state.data![year];
 		yAxisData.push(year);
 		gates.forEach(gate =>{
-			console.log("ddddddddd")
 			const [name ,stats] = Object.entries(gate)[0];//雖然只有一項，但取出來的也是個列表
 			
-			console.log(stats)
 			if (!eachGateData[name]){
 				eachGateData[name]=[stats]
 				eachGateNum[name]=[stats.出入境人數]
