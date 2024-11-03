@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
 import { getAverageStayTime } from "@/api";
 import { graphic } from "echarts/core";
 import { ElMessage } from "element-plus";
+import { usePopoverStore } from '@/stores/piniaStore';
+import * as echarts from 'echarts';
+const popoverStore = usePopoverStore();
 
 const option = ref({});
-const getData = () => {
+const stayChart = ref(null);
+let myChart = null;
+
+const getData = async () => {
   getAverageStayTime()
     .then((res) => {
       console.log("右上--旅客平均逗留時間 ", res);
@@ -22,8 +28,23 @@ const getData = () => {
       ElMessage.error(err);
     });
 };
+const initChart = () =>{
+	myChart = echarts.init(stayChart.value);
+	getData();
+	myChart.setOption(option.value);
+}
 const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
   option.value = {
+	  title: {
+	    text: ' Visitors Average Stay',
+	    top: '0%',
+	    left: 'center',
+	    textStyle: {
+	      fontSize: 10,
+	      fontWeight: 'bold',
+	  		  color:'#ec9d00'
+	    }
+	  },
     xAxis: {
       type: "category",
       data: xData,
@@ -221,12 +242,49 @@ const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
   };
 };
 onMounted(() => {
-  getData();
+	initChart();
 });
+onUnmounted(()=>{
+	if(myChart){
+		myChart.dispose();
+	}
+});
+const handlePopoverOpen = () => {
+  //await nextTick();
+  //myChart = echarts.init(chartDom.value);
+  if (!stayChart.value) {
+     console.error('chartDom is not ready');
+     return;
+   }
+   // Initialize the echarts instance on the prepared DOM element
+   //myChart = echarts.init(stayChart.value);
+   // Optionally, you can clear any existing options before setting new ones
+   //myChart.clear();
+   getData();
+   // Set the chart option
+   myChart.setOption(option.value);
+ 
+   console.log('Popover opened and chart initialized');
+}
+
+// 监听 isPopoverOpen 的变化
+watch(() => popoverStore.isPopoverOpen,  (newValue) => {
+  if (newValue) {
+    // Delay initialization to ensure all transitions are complete
+      handlePopoverOpen();
+  }
+});
+
+
 </script>
 
 <template>
-  <v-chart class="chart" :option="option" v-if="JSON.stringify(option) != '{}'" />
+  <div class="chart" ref="stayChart" />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+	.chart{
+		height: 250px;
+		width: 450px;
+	}
+</style>

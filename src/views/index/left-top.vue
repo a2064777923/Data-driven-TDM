@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref, onMounted, nextTick } from "vue";
+import { reactive, ref, onMounted, nextTick, onUnmounted } from "vue";
 import { getMainlandTourist } from "@/api";
 import CountUp from "@/components/count-up";
 import {ElMessage} from "element-plus"
@@ -195,6 +195,7 @@ const setOption = () =>{
 	}
  )
  //setOption();
+
 
 </script>
 
