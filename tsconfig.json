@@ -15,7 +15,7 @@
       "esnext",
       "dom"
     ],
-    "baseUrl": "./",
+    "baseUrl": ".",
     "types": [
       "node",
       "vite/client",
@@ -23,10 +23,10 @@
     ],
     "paths": {
       "@/*": [
-        "src/*"
+        "./src/*"
       ],
       "api/*": [
-        "src/api/*"
+        "./src/api/*"
       ]
     }
   },
@@ -39,9 +39,16 @@
     "types/*.d.ts"
   ],
   "exclude": ["node_modules","public"],
+  "fils":[],
   "references": [
     {
       "path": "./tsconfig.config.json"
-    }
+    },
+	{
+	  "path": "./tsconfig.app.json"
+	},
+	{
+	  "path": "./tsconfig.node.json"
+	}
   ]
 }

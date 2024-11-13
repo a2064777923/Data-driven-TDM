@@ -1,11 +1,25 @@
 <template>
-  <div id="macauMap" ref="mapChartDom" style="width: 100%; height: 500px;"></div>
-</template>
+<div class="relative h-[500px] bg-Neutral-500 rounded-lg w-full bg-background overflow-hidden border">
+	<FlickeringGrid
+	  class="z-0 absolute inset-0 size-full"
+	  :squareSize="5"
+	  :gridGap="6"
+	  color="#aaaaff"
+	  :maxOpacity="0.5"
+	  :flickerChance="0.1"
+	  :height="800"
+	  :width="800"
+	/>
+	<div id="macauMap" ref="mapChartDom" style="width: 100%; height: 500px;"></div>
+	
+  </div>
+  </template>
 
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import { GETNOBASE } from "@/api";
+import FlickeringGrid from '@/components/ui/flickering-grid.vue'; 
 
 const mapChartDom = ref(null);
 let macauMapChart = null;
@@ -58,7 +72,7 @@ const initializeMap = async () => {
         text: ['高', '低'],
         calculable: true,
         inRange: {
-          color: ['#d4ffec', '#06dd84']
+          color: ['#f8f5f0', '#fcd7c4', '#efa37f', '#d65f4f', '#b4202e']
         }
       },
       geo: {

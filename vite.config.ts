@@ -8,13 +8,15 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 //https://github.com/element-plus/unplugin-element-plus/blob/HEAD/README.zh-CN.md
 import ElementPlus from 'unplugin-element-plus/vite'
+import path from "path";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 
   // const env = loadEnv(mode, process.cwd(), '')
   console.log(command, mode);
   return {
-    plugins: [vue(),
+    plugins: [vue(),react(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
     }),
@@ -43,7 +45,7 @@ export default defineConfig(({ command, mode }: ConfigEnv): UserConfig => {
 	},
     resolve: {
       alias: {
-        "@": resolve(__dirname, "./src"),
+        "@": path.resolve(__dirname, "./src"),
         "components": resolve(__dirname, "./src/components"),
         "api": resolve(__dirname, "./src/api"),
       },

@@ -11,10 +11,14 @@ const indexUrl=  {
 	"centerBottom":"/api/tourist/getCenterBottomMock",//中央底部模擬數據
 	
 	"hotelCount":"/api/hotels/getHotelsCount",//左中 獲取酒店數量統計
+	"hotelPriceHistory":"/api/hotels/getHotelPriceHistory",
 	"mainlandTourist": "/api/tourist/getMainlandTourist",//左上 獲取內地旅客的統計數據
 	"festivalEvents": "/api/event/getFestivalEvents", //獲取節日盛事
+	"eventsHolding":"/api/event/getEventsHolding",//仍末结束的活动
 	"averageLengthStay": "/api/tourist/getAverageLengthStay", //獲取平均逗留時間
-	"enterExitMock":"/api/tourist/getEnterExitMock" //出入境模擬
+	"enterExitMock":"/api/tourist/getEnterExitMock", //出入境模擬
+	
+	"hotelMapDetail":"/api/map/getHotelMapDetail"//獲取地图上的酒店詳情
 }
 
 export default indexUrl
@@ -49,6 +53,11 @@ export const getFestivalEvents=(param:any={})=>{
 	return GET(indexUrl.festivalEvents,param)
 }
 
+/**仍在舉行的活動 */
+export const getEventsHolding=(param:any={})=>{
+	return GET(indexUrl.eventsHolding,param)
+}
+
 /**中下--模擬數據 */
 export const getCenterBottomMock=(param:any={})=>{
     return GET(indexUrl.centerBottom,param)
@@ -62,4 +71,14 @@ export const getAverageStayTime=(param: any={})=>{
 /**右中--出入境*/
 export const getEnterExitMock=(param: any={})=>{
 	return GET(indexUrl.enterExitMock,param)
+}
+
+export const getHotelMapDetail=(param: any={})=>{
+
+    return GET(indexUrl.hotelMapDetail,param);
+}
+
+/**酒店價格歷史*/
+export const getHotelPriceHistory=(param: any={})=>{
+	return GET(indexUrl.hotelPriceHistory,param);
 }

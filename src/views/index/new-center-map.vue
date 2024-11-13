@@ -17,6 +17,7 @@ import * as echarts from 'echarts';
 import type { TabsPaneContext } from 'element-plus';
 import PeopleMap from './Map/people-map.vue';
 import RealMap from './Map/real-map.vue';
+import GlobalVisitors from './Map/global-visitors.vue';
 
 const activeName = ref('first')
 const handleClick = (tab: TabsPaneContext, event: Event) => {
@@ -95,8 +96,8 @@ watch(option, (newOption) => {
 				      <RealMap v-if="activeName==='second'"/>
 				</div>
 		  	</el-tab-pane>
-		    <el-tab-pane label="2 plus 2" name="third">
-		  		No
+		    <el-tab-pane label="Global visitors" name="third">
+		  		
 		  	</el-tab-pane>
 		  </el-tabs>
 
@@ -152,12 +153,12 @@ watch(option, (newOption) => {
   }
   
   .demo-tabs .el-tabs__content {
-    padding: 0; /* 去除内边距 */
+    padding: -30px; /* 去除内边距 */
     margin-top: -80px; /* 根据需要调整此值，以减少与标签的间距 */
   }
   
   .tab-content {
-    padding: -10px; /* 可以根据需要调整内容的内边距 */
+    padding: -30px; /* 可以根据需要调整内容的内边距 */
 	margin-top: -30px;
   }
 

@@ -21,6 +21,10 @@ import ServiceFacilities from "./Service-facilities.vue";
 import MacauConsumption from "./macau-consumption.vue";
 import { usePopoverStore } from '@/stores/piniaStore';
 import NewCenterMap from "./new-center-map.vue";
+import EventsMarquee from "./events/events-marquee.vue";
+import NonNativeVisitors from './macauTouristMore/Non-native-visitors-Macau.vue';
+
+
 
 const isMacauPriceExpand = ref(false);
 const isOverNightExpand = ref(false);
@@ -70,13 +74,12 @@ const handlePopoverShow = () => {
 		  
         <ServiceFacilities/>
       </ItemWrap>
-      <ItemWrap
+      <div
         class="contetn_left-bottom contetn_lr-item"
-        title="Festival Events"
         style="padding: 0 10px 16px 10px"
       >
-        <LeftBottom />
-      </ItemWrap>
+	  <EventsMarquee />
+      </div>
     </div>
     <div class="contetn_center">
 	
@@ -132,16 +135,16 @@ const handlePopoverShow = () => {
         style="padding: 0 10px 16px 10px">
 	  <el-popover
 		  :visible="isVisitorStayExpand"
-		  placement="left-start"
+		  placement="top-end"
 		  popover-class="popovers"
 		  content = "dark"
-		  width="500"
+		  width="800"
 		  :append-to-body="true"
 		  @show="handlePopoverShow"
 		  >
-			<RightTop/>
+			<NonNativeVisitors/>
 			<template #reference>
-				<el-button @click="isVisitorStayExpand = !isVisitorStayExpand" type="primary" size="small" class="small-button-left">
+				<el-button @click="isVisitorStayExpand = !isVisitorStayExpand" type="primary" size="small" class="small-button">
 					{{isVisitorStayExpand == true ?'Put away':'Average Stay'}}
 				</el-button>
 			</template>

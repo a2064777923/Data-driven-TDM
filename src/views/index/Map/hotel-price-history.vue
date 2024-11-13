@@ -1,22 +1,21 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted, watch, nextTick } from "vue";
-import { getAverageStayTime } from "@/api";
+import { ref, onMounted, onUnmounted} from "vue";
+import { getHotelPriceHistory } from "@/api";
 import { graphic } from "echarts/core";
 import { ElMessage } from "element-plus";
-import { usePopoverStore } from '@/stores/piniaStore';
 import * as echarts from 'echarts';
-const popoverStore = usePopoverStore();
 
 const option = ref({});
-const stayChart = ref(null);
+const hotelChart = ref(null);
 let myChart = null;
 
 const getData = async () => {
-  getAverageStayTime()
+  getHotelPriceHistory()
     .then((res) => {
-      console.log("右上--旅客平均逗留時間 ", res);
+      console.log("酒店價格歷史 ", res);
+	  console.log(res)
       if (res.success) {
-        setOption(res.data.dateList, res.data.numList1, res.data.numList2);
+        setOption(res.data.month, res.data.average, res.data.five_star, res.data.four_star, res.data.three_star);
       } else {
         ElMessage({
           message: res.msg,
@@ -29,14 +28,17 @@ const getData = async () => {
     });
 };
 const initChart = () =>{
-	myChart = echarts.init(stayChart.value);
+	myChart = echarts.init(hotelChart.value);
 	getData();
-	myChart.setOption(option.value);
+	setTimeout(()=>{
+		myChart.setOption(option.value);
+	},2000);
+	
 }
-const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
+const setOption = async (xData: any[], yData: any[], yData2: any[],yData3: number[], yData4: number[]) => {
   option.value = {
 	  title: {
-	    text: ' Visitors Average Stay',
+	    text: ' Hotel History Price',
 	    top: '0%',
 	    left: 'center',
 	    textStyle: {
@@ -108,7 +110,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
         type: "line",
         smooth: true,
         symbol: "none", //去除点
-        name: "Average Stay Time",
+        name: "Average hotel price",
         color: "rgba(252,144,16,.7)",
         areaStyle: {
           //右，下，左，上
@@ -175,7 +177,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
         type: "line",
         smooth: true,
         symbol: "none", //去除点
-        name: "隨機放的數據，感覺兩條線好看點",
+        name: "Five star hotel price",
         color: "rgba(9,202,243,.7)",
         areaStyle: {
           //右，下，左，上
@@ -216,7 +218,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
                 borderRadius: 6,
                 borderColor: "rgba(9,202,243,.5)",
                 padding: [7, 14],
-                formatter: "阿巴阿巴：{c}",
+                //formatter: "阿巴阿巴：{c}",
                 borderWidth: 0.5,
               },
             },
@@ -238,8 +240,147 @@ const setOption = async (xData: any[], yData: any[], yData2: any[]) => {
           ],
         },
       },
+	  {
+		  
+		    data: yData3,
+		    type: "line",
+		    smooth: true,
+		    symbol: "none", //去除点
+		    name: "four star hotel price",
+		    color: "rgba(85, 255, 0, 0.7)",
+		    areaStyle: {
+		      //右，下，左，上
+		      color: new graphic.LinearGradient(
+		        0,
+		        0,
+		        0,
+		        1,
+		        [
+		          {
+		            offset: 0,
+		            color: "rgba(85, 255, 0, 0.7)",
+		          },
+		          {
+		            offset: 1,
+		            color: "rgba(9,202,243,.0)",
+		          },
+		        ],
+		        false
+		      ),
+		    },
+		    markPoint: {
+		      data: [
+		        {
+		          name: "Max",
+		          type: "max",
+		          valueDim: "y",
+		          symbol: "rect",
+		          symbolSize: [60, 26],
+		          symbolOffset: [0, -20],
+		          itemStyle: {
+		            color: "rgba(0,0,0,0)",
+		          },
+		          label: {
+		            color: "#55ff00",
+		            backgroundColor: "rgba(85, 255, 0, 0.1)",
+		  
+		            borderRadius: 6,
+		            borderColor: "rgba(85, 255, 0,.5)",
+		            padding: [7, 14],
+		            //formatter: "阿巴阿巴：{c}",
+		            borderWidth: 0.5,
+		          },
+		        },
+		        {
+		          name: "Max",
+		          type: "max",
+		          valueDim: "y",
+		          symbol: "circle",
+		          symbolSize: 6,
+		          itemStyle: {
+		            color: "#55ff00",
+		            shadowColor: "#55ff00",
+		            shadowBlur: 8,
+		          },
+		          label: {
+		            formatter: "",
+		          },
+		        },
+		      ],
+		    },
+		  
+	  },
+	  {	  
+			data: yData4,
+			type: "line",
+			smooth: true,
+			symbol: "none", //去除点
+			name: "three star hotel price",
+			color: "rgba(170, 170, 255, 0.7)",
+			areaStyle: {
+			  //右，下，左，上
+			  color: new graphic.LinearGradient(
+				0,
+				0,
+				0,
+				1,
+				[
+				  {
+					offset: 0,
+					color: "rgba(170, 170, 255, 0.7)",
+				  },
+				  {
+					offset: 1,
+					color: "rgba(9,202,243,.0)",
+				  },
+				],
+				false
+			  ),
+			},
+			markPoint: {
+			  data: [
+				{
+				  name: "Max",
+				  type: "max",
+				  valueDim: "y",
+				  symbol: "rect",
+				  symbolSize: [60, 26],
+				  symbolOffset: [0, -20],
+				  itemStyle: {
+					color: "rgba(0,0,0,0)",
+				  },
+				  label: {
+					color: "#aaaaff",
+					backgroundColor: "rgba(170, 170, 255, 0.1)",
+		  
+					borderRadius: 6,
+					borderColor: "rgba(170, 170, 255, 0.5)",
+					padding: [7, 14],
+					//formatter: "阿巴阿巴：{c}",
+					borderWidth: 0.5,
+				  },
+				},
+				{
+				  name: "Max",
+				  type: "max",
+				  valueDim: "y",
+				  symbol: "circle",
+				  symbolSize: 6,
+				  itemStyle: {
+					color: "#aaaaff",
+					shadowColor: "#aaaaff",
+					shadowBlur: 8,
+				  },
+				  label: {
+					formatter: "",
+				  },
+				},
+			  ],
+			},
+	  }
     ],
   };
+  myChart.setOption(option.value)
 };
 onMounted(() => {
 	initChart();
@@ -249,42 +390,18 @@ onUnmounted(()=>{
 		myChart.dispose();
 	}
 });
-const handlePopoverOpen = () => {
-  //await nextTick();
-  //myChart = echarts.init(chartDom.value);
-  if (!stayChart.value) {
-     console.error('chartDom is not ready');
-     return;
-   }
-   // Initialize the echarts instance on the prepared DOM element
-   //myChart = echarts.init(stayChart.value);
-   // Optionally, you can clear any existing options before setting new ones
-   //myChart.clear();
-   getData();
-   // Set the chart option
-   myChart.setOption(option.value);
- 
-   console.log('Popover opened and chart initialized');
-}
 
-// 监听 isPopoverOpen 的变化
-watch(() => popoverStore.isPopoverOpen,  (newValue) => {
-  if (newValue) {
-    // Delay initialization to ensure all transitions are complete
-      handlePopoverOpen();
-  }
-});
 
 
 </script>
 
 <template>
-  <div class="chart" ref="stayChart" />
+  <div class="chart" ref="hotelChart" />
 </template>
 
 <style scoped lang="scss">
 	.chart{
-		height: 250px;
-		width: 500px;
+		height: 300px;
+		width: 600px;
 	}
 </style>
