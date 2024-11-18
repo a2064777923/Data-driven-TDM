@@ -39,7 +39,7 @@ const getData = () =>{
 	});
 	
 };
-getData();
+//getData();
 
 const setOption = () =>{
 	if(!state.data) return;
@@ -72,7 +72,7 @@ const setOption = () =>{
 			type:'bar',
 			stack:'total',
 			label:{
-				show:true
+				show:false
 			},
 			emphasis:{
 				focus:'series'
@@ -104,13 +104,19 @@ const setOption = () =>{
 		      type: 'shadow' // 'shadow' as default; can also be 'line' or 'shadow'
 		    }
 		  },
-		  legend: {
-			  itemWidth: 8, // 设置图例标记的宽度
-			    itemHeight: 6, // 设置图例标记的高度
-			    textStyle: {
-			        fontSize: 8, // 设置图例文字的大小
-			        color: '#c5b910' // 设置图例文字的颜色
-			    }
+		toolbox:{
+			feature:{
+				saveAsImage:{}
+			},
+			bottom:'50%',
+		},
+	    legend: {
+		  itemWidth: 8, // 设置图例标记的宽度
+			itemHeight: 6, // 设置图例标记的高度
+			textStyle: {
+				fontSize: 8, // 设置图例文字的大小
+				color: '#6b7280' // 设置图例文字的颜色
+			}
 		  },
 		  grid: {
 		    left: '3%',
@@ -121,14 +127,14 @@ const setOption = () =>{
 		  xAxis: {
 		    type: 'value',
 			axisLabel:{
-				color: "#55aa7f"
+				color: "#6b7280"
 			}
 		  },
 		  yAxis: {
 		    type: 'category',
 		    data: yAxisData,
 			axisLabel:{
-				color: "#55aa7f"
+				color: "#6b7280"
 			}
 		  },
 		series: seriesData
@@ -146,12 +152,17 @@ const setOption = () =>{
 	});
 */
 
- const myChart = ref()
+ const myChart = ref(null)
  onMounted(
 	async () => {
+
 		await nextTick()
 		// 渲染echarts的父元素
-		var infoEl = myChart.value
+		let infoEl = myChart.value;
+		setTimeout(()=>{
+			getData();
+		}, 1);
+		myChart.value.setOption(option.value);
 	}
  )
 
@@ -162,6 +173,7 @@ const setOption = () =>{
     id="mainland"
     class="chart"
     :option="option"
+	ref= "myChart"
   />
 </template>
 

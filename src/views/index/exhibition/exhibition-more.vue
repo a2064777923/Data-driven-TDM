@@ -9,7 +9,6 @@
     <el-tab-pane label="2 plus 2" name="third">
 		<TwoPlusTwo v-if="activeName === 'third'"/>
 	</el-tab-pane>
-    <el-tab-pane label="Task" name="fourth">Task</el-tab-pane>
   </el-tabs>
 </template>
 <script lang="ts" setup>

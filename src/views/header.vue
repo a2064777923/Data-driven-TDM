@@ -83,6 +83,7 @@ timeFn()
     right: 0;
     top: 30px;
     font-size: 18px;
+	color: grey;
     display: flex;
     align-items: center;
 

@@ -436,58 +436,63 @@ export default {
       const sortedData = Object.entries(currentData.values).sort((a, b) => b[1] - a[1]).slice(0, 15);
 
       const option = {
-        title: {
-          text: 'Non-native visitors to Macau - ' + currentData.year,
-          left: 'center',
-          textStyle: {
-            fontSize: 24,
-            color: '#333'
-          }
-        },
-        tooltip: {
-          trigger: 'axis',
-          axisPointer: {
-            type: 'shadow'
-          }
-        },
-        xAxis: {
-          type: 'value',
-          axisLabel: {
-            formatter: '{value}',
-            color: '#666'
-          }
-        },
-        yAxis: {
-          type: 'category',
-          data: sortedData.map(item => item[0]),
-          axisLabel: {
-            interval: 0,
-            rotate: 30,
-            color: '#666'
-          },
-          inverse: true
-        },
-        series: [{
-          type: 'bar',
-          data: sortedData.map(item => ({
-            value: item[1],
-            label: {
-              show: true,
-              position: 'right',
-              formatter: '{c}',
-              color: '#333'
-            },
-            itemStyle: {
-              color: regionColors[item[0]]
-            }
-          })),
-          itemStyle: {
-            borderRadius: [5, 5, 0, 0]
-          }
-        }],
-        animationDurationUpdate: 1000,
-        animationEasingUpdate: 'quinticInOut'
-      };
+              title: {
+                text: 'Non-native visitors to Macau - ' + currentData.year,
+                left: 'center',
+                textStyle: {
+                  fontSize: 24,
+                  color: 'grey'
+                }
+              },
+              tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                  type: 'shadow'
+                }
+              },
+              xAxis: {
+                type: 'value',
+                axisLabel: {
+                  formatter: '{value}',
+                  color: 'grey'
+                }
+              },
+              yAxis: {
+                type: 'category',
+                data: sortedData.map(item => item[0]),
+                axisLabel: {
+                  interval: 0,
+                  rotate: 30,
+                  color: 'grey'
+                },
+                inverse: true
+              },
+              toolbox: {
+      	          feature: {
+      	          saveAsImage: {}
+      	        }
+      	      },
+              series: [{
+                type: 'bar',
+                data: sortedData.map(item => ({
+                  value: item[1],
+                  label: {
+                    show: true,
+                    position: 'right',
+                    formatter: '{c}',
+                    color: 'grey'
+                  },
+                  itemStyle: {
+                    color: regionColors[item[0]]
+                  }
+                })),
+                itemStyle: {
+                  borderRadius: [5, 5, 0, 0]
+                }
+              }],
+              animationDurationUpdate: 1000,
+              animationEasingUpdate: 'quinticInOut'
+            };
 
       myChart.setOption(option);
       currentIndex = (currentIndex + 1) % data.length;

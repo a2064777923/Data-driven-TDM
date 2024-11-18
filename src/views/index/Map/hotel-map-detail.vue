@@ -29,7 +29,15 @@
 		</div>
 		<transition name="fade">
 			<div v-if="showData">
+				<div class="checkbox-wrapper-5">
+					<div class="check">
+						<input id="check-5" type="checkbox" @change="expandOrPutAwayAllNodes">
+						<label for="check-5"></label>
+					</div>
+					<p>Expand All?</p>
+				</div>
 				<div style="width:850px;height:700px; margin-bottom: 20px; background-color: #eef7ff;">
+
 					<div ref="graphDom" style="width: 100%; height: 700px;"></div>
 				</div>
 				
@@ -132,6 +140,8 @@ components: {
 	  const hotelReviewInfo = ref(null);
 	  const hotelData = ref(null)
 	  const graphDom = ref(null);
+	  
+	  const expandAllNodes = ref(false);
 	  let myGraph = null;
 	  
 	  let graphData = null;
@@ -213,6 +223,34 @@ components: {
 			 }
 		 });
        };
+	   
+	   const expandOrPutAwayAllNodes = () => {
+		   expandAllNodes.value = !expandAllNodes.value;
+		   if(expandAllNodes.value){
+			   graphData.links.forEach(link => {
+				   link.hidden = false;
+				   graphData.nodes.forEach(node => {
+					   if (node.id === link.target || node.id === link.source) {
+						   node.hidden = false;
+					   }
+				   });
+			   });
+		   }else{
+			   graphData.links.forEach(link => {
+				   if(link.source !== 'hotel'){
+					   link.hidden = true;
+					   graphData.nodes.forEach(node => {
+						   if (node.id === link.target || node.id === link.source) {
+							   node.hidden = true;
+						   }
+					   });
+				   }
+			   });
+		   }
+	   
+	       // Update the chart with the new data
+	       setChartOption();
+	   };
 
 	
 	    const getGraphData = () => {
@@ -447,7 +485,8 @@ components: {
 		graphDom,
 		hotelData, 
 		parsedPrices, 
-		priceComparisons
+		priceComparisons,
+		expandOrPutAwayAllNodes
 	  };
   }
 };
@@ -513,5 +552,102 @@ components: {
   margin-left: 5px;
 }
 
+.checkbox-wrapper-5{
+	display: flex;
+	justify-content: left;
+}
+ .checkbox-wrapper-5 .check {
+    --size: 30px;
+    position: relative;
+    background: linear-gradient(90deg, #f19af3, #f099b5);
+    line-height: 0;
+    perspective: 400px;
+    font-size: var(--size);
+  }
 
+  .checkbox-wrapper-5 .check input[type="checkbox"],
+    .checkbox-wrapper-5 .check label,
+    .checkbox-wrapper-5 .check label::before,
+    .checkbox-wrapper-5 .check label::after,
+    .checkbox-wrapper-5 .check {
+    appearance: none;
+    display: inline-block;
+    border-radius: var(--size);
+    border: 0;
+    transition: .35s ease-in-out;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  .checkbox-wrapper-5 .check label {
+    width: calc(2.2 * var(--size));
+    height: var(--size);
+    background: #d7d7d7;
+    overflow: hidden;
+  }
+
+  .checkbox-wrapper-5 .check input[type="checkbox"] {
+    position: absolute;
+    z-index: 1;
+    width: calc(.8 * var(--size));
+    height: calc(.8 * var(--size));
+    top: calc(.1 * var(--size));
+    left: calc(.1 * var(--size));
+    background: linear-gradient(45deg, #dedede, #ffffff);
+    box-shadow: 0 6px 7px rgba(0,0,0,0.3);
+    outline: none;
+    margin: 0;
+  }
+
+  .checkbox-wrapper-5 .check input[type="checkbox"]:checked {
+    left: calc(1.3 * var(--size));
+  }
+
+  .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label {
+    background: transparent;
+  }
+
+  .checkbox-wrapper-5 .check label::before,
+    .checkbox-wrapper-5 .check label::after {
+    content: "· ·";
+    position: absolute;
+    overflow: hidden;
+    left: calc(.15 * var(--size));
+    top: calc(.5 * var(--size));
+    height: var(--size);
+    letter-spacing: calc(-0.04 * var(--size));
+    color: #9b9b9b;
+    font-family: "Times New Roman", serif;
+    z-index: 2;
+    font-size: calc(.6 * var(--size));
+    border-radius: 0;
+    transform-origin: 0 0 calc(-0.5 * var(--size));
+    backface-visibility: hidden;
+  }
+
+  .checkbox-wrapper-5 .check label::after {
+    content: "●";
+    top: calc(.65 * var(--size));
+    left: calc(.2 * var(--size));
+    height: calc(.1 * var(--size));
+    width: calc(.35 * var(--size));
+    font-size: calc(.2 * var(--size));
+    transform-origin: 0 0 calc(-0.4 * var(--size));
+  }
+
+  .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::before,
+    .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
+    left: calc(1.55 * var(--size));
+    top: calc(.4 * var(--size));
+    line-height: calc(.1 * var(--size));
+    transform: rotateY(360deg);
+  }
+
+  .checkbox-wrapper-5 .check input[type="checkbox"]:checked + label::after {
+    height: calc(.16 * var(--size));
+    top: calc(.55 * var(--size));
+    left: calc(1.6 * var(--size));
+    font-size: calc(.6 * var(--size));
+    line-height: 0;
+  }
 </style>

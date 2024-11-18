@@ -123,11 +123,12 @@ export default {
         showSymbol: false,
         lineStyle: { width: 2 },
         endLabel: {
-          show: true,
+          show: false,
           formatter: function (params) {
             return params.seriesName + ': ' + params.value[params.encode.y[0]];
           }
         },
+        label: {show:false},
         labelLayout: { moveOverlap: 'shiftY' },
         emphasis: { focus: 'series' }
       }));
@@ -141,14 +142,15 @@ export default {
           type: 'category',
           nameLocation: 'middle',
           name: 'Year',
-          axisLabel: { margin: 1, fontSize: 14 }
+          axisLabel: { margin: 1, fontSize: 10 }
         },
-        yAxis: { name: yAxisName, axisLabel: { fontSize: 14 } },
+        yAxis: { name: yAxisName, axisLabel: { fontSize: 10 } },
         series: seriesList,
-        color: ['#5470C6', '#91CC75', '#EE6666', '#FAC858', '#73C0DE'],
+        color: ['#5470c6', '#92cc75', '#ebbd55', '#73c0de', '#fc8451'],
         legend: {
-          top: '5%',
-          left: 'center',
+          top: '0%',
+          left: '20%',
+          right: '25%',
           data: data[0].slice(1).sort((a, b) => {
             const lastIndex = data.length - 1;
             return data[lastIndex][data[0].indexOf(b)] - data[lastIndex][data[0].indexOf(a)];

@@ -14,7 +14,7 @@ const props = withDefaults(
 </script>
 
 <template>
-  <BorderBox8 :color="['orange','yellow']" backgroundColor="rgba(85, 85, 85,0.8)">
+  <BorderBox8 :color="['orange','yellow']" backgroundColor="rgba(186, 230, 253, 0.8)">
     <div class="item_title" v-if="title !== ''">
       <div class="zuo"></div>
       <span class="title-inner"> &nbsp;&nbsp;{{ title }}&nbsp;&nbsp; </span>
@@ -58,9 +58,9 @@ $item_title_content-height: calc(100% - 38px);
     letter-spacing: 2px;
     background: linear-gradient(
       92deg,
-      #afa211 0%,
-      #c9e31a 48.8525390625%,
-      #aaaf19 100%
+      #262626 0%,
+      #171717 48.8525390625%,
+      #0a0a0a 100%
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;

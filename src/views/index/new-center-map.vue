@@ -153,13 +153,13 @@ watch(option, (newOption) => {
   }
   
   .demo-tabs .el-tabs__content {
-    padding: -30px; /* 去除内边距 */
+    padding: 0px; /* 去除内边距 */
     margin-top: -80px; /* 根据需要调整此值，以减少与标签的间距 */
   }
   
   .tab-content {
-    padding: -30px; /* 可以根据需要调整内容的内边距 */
-	margin-top: -30px;
+    padding: 0px; /* 可以根据需要调整内容的内边距 */
+	margin-top: -50px;
   }
 
 }

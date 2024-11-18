@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div id="overnight" style="width: 550px; height: 250px;"></div>
+		<div id="overnight" style="width: 400px; height: 400px;"></div>
 	</div>
 </template>
 
@@ -30,11 +30,16 @@ onMounted(() => {
         return `${params.value[1]} ${params.value[0]}: ${params.value[2]}`;
       },
     },
+    toolbox: {
+	    feature: {
+	    saveAsImage: {}
+	    }
+	  },
     grid: {
       left: "10%",
       right: "5%",
       bottom: "15%",
-	  top: "10%",
+	    top: "10%",
       containLabel: true,
     },
     xAxis: {
@@ -319,6 +324,6 @@ onMounted(() => {
 	.container{
 		  width: 100%;
 		  display: flex;
-		  height: 260px; // 与 ItemWrap 一致
+		  height: 420px; // 与 ItemWrap 一致
 	}
 </style>

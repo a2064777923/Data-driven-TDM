@@ -1,6 +1,6 @@
 <template>
 	<div class="container">
-		<div id="sameday" style="width: 550px; height: 250px;"></div>
+		<div id="sameday" style="width: 400px; height: 400px;"></div>
 	</div>
 </template>
 
@@ -77,6 +77,12 @@
 					"2024",
 				],
 			},
+			toolbox: {
+	    		feature: {
+	    		saveAsImage: {}
+	    		},
+    		left: '1%', // Position the toolbox 5% from the bottom
+	  		},
 			visualMap: {
 				show: true,
 				min: 0,
@@ -320,6 +326,6 @@
 	.container{
 		  width: 100%;
 		  display: flex;
-		  height: 260px; // 与 ItemWrap 一致
+		  height: 420px; // 与 ItemWrap 一致
 	}
 </style>

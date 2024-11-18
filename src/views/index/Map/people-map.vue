@@ -24,14 +24,14 @@ import FlickeringGrid from '@/components/ui/flickering-grid.vue';
 const mapChartDom = ref(null);
 let macauMapChart = null;
 const areaData = [
-  { name: '大堂区', value: 51430800 },
-  { name: '路凼填海区', value: 44999792 },
-  { name: '嘉模堂区', value: 27172919 },
-  { name: '花地玛堂区', value: 20481757 },
-  { name: '花王堂区', value: 12953188 },
-  { name: '风顺堂区', value: 5711291 },
-  { name: '圣方济各堂区', value: 4642241 },
-  { name: '望德堂区', value: 1875329 }
+  { name: 'Cathedral Parish', value: 51430800 },
+  { name: 'Cotai Reclamation Area', value: 44999792 },
+  { name: 'Our Lady of Carmel Parish', value: 27172919 },
+  { name: 'Our Lady of Fatima Parish', value: 20481757 },
+  { name: 'St. Anthony Parish', value: 12953188 },
+  { name: 'St. Lawrence Parish', value: 5711291 },
+  { name: 'St. Francis Parish', value: 4642241 },
+  { name: 'St. Lazarus Parish', value: 1875329 }
 ];
 
 async function fetchMacauGeoJson() {
@@ -54,7 +54,7 @@ const initializeMap = async () => {
 
     const option = {
       title: {
-        text: '2024年澳门区域人次数据',
+        text: '2024 Macau regional visitors',
         left: 'center',
 		textStyle:{
 			fontSize:18,
@@ -62,7 +62,7 @@ const initializeMap = async () => {
       },
       tooltip: {
         trigger: 'item',
-        formatter: params => `${params.name}<br/>人次: ${params.value}`
+        formatter: params => `${params.name}<br/>person-time: ${params.value}`
       },
       visualMap: {
         min: 0,

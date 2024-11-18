@@ -1,18 +1,22 @@
 <template>
-  <div>
-    <el-select size="small" v-model="selectedYear" @change="onYearChange">
-      <el-option
-        v-for="year in years"
-        :key="year"
-        :label="year"
-        :value="year"
-      />
-    </el-select>
-    <div ref="chartContainer" style="width: 500px; height: 240px"></div>
-	<el-button size="small" @click="toggleCarousel">
-	  {{ isRunning ? 'Stop Play' : 'Auto Play' }}
-	</el-button>
+  <div class="container">
+    <el-slider
+      v-model="selectedYear"
+      :min="2015"
+      :max="2023"
+      :step="1"
+      :marks="yearMarks"
+      show-tooltip
+      @change="onYearChange"
+      style="height: 200px; width: 5px; font-size:8px; color: grey;"
+      vertical
+      class="vertical-slider"
+    ></el-slider>
+    <div id= "consumptionChart" ref="chartContainer"></div>
   </div>
+  <el-button size="small" @click="toggleCarousel" style="margin-top: -30px;">>
+    {{ isRunning ? 'Stop Play' : 'Auto Play' }}
+  </el-button>
 </template>
 
 <script>
@@ -22,7 +26,18 @@ export default {
   data() {
     return {
       years: [],
-      selectedYear: null,
+      selectedYear: 2016,
+	  yearMarks: {
+		  2015: '2015',
+		  2016: '2016',
+		  2017: '2017',
+		  2018: '2018',
+		  2019: '2019',
+		  2020: '2020',
+		  2021: '2021',
+		  2022: '2022',
+		  2023: '2023'
+	  },
       isRunning: false,
       intervalId: null,
       currentYearIndex: 0,
@@ -114,6 +129,7 @@ export default {
           {
             name: "spending breakdown",
             type: "treemap",
+			breadcrumb: {show:false},
             visibleMin: 300,
             label: {
               show: true,
@@ -127,6 +143,13 @@ export default {
             data: treeData,
           },
         ],
+		toolbox: {
+			feature: {
+			saveAsImage: {}
+		  },
+		  right: '2%', // 向右移动 10%
+		  top: '15%'
+		}
       };
 	  const myChart = echarts.init(this.$refs.chartContainer);
       myChart.setOption(option);
@@ -157,8 +180,25 @@ export default {
 };
 </script>
 
-<style>
-.tooltip-title {
-  font-weight: bold;
+<style scoped>
+
+
+#consumptionChart{
+	width: 650px; 
+	height: 250px;
 }
+.container {
+  display: flex; /* 使用 Flexbox 布局 */
+}
+.vertical-slider {
+  width: 10px;
+  height: 250px; /* 根据需要调整高度 */
+  margin-right: 20px; /* 右侧边距 */
+}
+
+::v-deep .el-slider__marks .el-slider__marks-text {
+  font-size: 8px !important; /* 使用 !important 来确保样式优先级 */
+  color: grey !important;
+}
+
 </style>

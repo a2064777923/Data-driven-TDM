@@ -19,12 +19,12 @@
 .expanded-charts {
   width: 100%;
   display: flex;
-  height: 310px; // 与 ItemWrap 一致
+  height: 600px; // 与 ItemWrap 一致
 }
 
 .echart {
   width: 50%;
-  height: 310px;
+  height: 600px;
 }
 
 

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <h1>過夜旅客消費模式總消費</h1>
+    <h1>Spending of Overnight Visitors</h1>
     <el-select size="small"  v-model="selectedYear" @change="updateChart">
       <el-option v-for="year in years" :key="year" :label="year" :value="year"></el-option>
     </el-select>
-    <div ref="chartContainer" style="width: 300px; height: 250px"></div>
+    <div ref="chartContainer" style="width: 600px; height: 500px"></div>
     <el-button size="small" @click="startAutoPlay">{{isAutoPlay == true ?'Stop play':'Auto play'}}</el-button>
   </div>
 </template>
@@ -25,8 +25,8 @@ export default {
 
     const data = [
     {
-        "year": "年份",
-        "category": "消費模式",
+        "year": "Year",
+        "category": "Consumption",
         "value": "NaN"
     },
     {
@@ -519,7 +519,7 @@ export default {
 
     onMounted(() => {
       consumptionChart.value = echarts.init(chartContainer.value);
-      years.value = [...new Set(data.map(item => item.year))].filter(year => year !== "年份").sort();
+      years.value = [...new Set(data.map(item => item.year))].filter(year => year !== "Year").sort();
       selectedYear.value = years.value[0];
       updateChart();
 

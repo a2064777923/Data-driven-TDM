@@ -4,7 +4,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820001,
-				"name": "花地玛堂区",
+				"name": "Our Lady of Fatima Parish",
 				"center": [
 					113.5528956,
 					22.20787
@@ -374,7 +374,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820002,
-				"name": "花王堂区",
+				"name": "St. Anthony Parish",
 				"center": [
 					113.5489608,
 					22.1992075
@@ -560,7 +560,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820003,
-				"name": "望德堂区",
+				"name": "St. Lazarus Parish",
 				"center": [
 					113.5501828,
 					22.19372083
@@ -758,7 +758,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820004,
-				"name": "大堂区",
+				"name": "Cathedral Parish",
 				"center": [
 					113.5536475,
 					22.18853944
@@ -1108,7 +1108,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820005,
-				"name": "风顺堂区",
+				"name": "St. Lawrence Parish",
 				"center": [
 					113.5419278,
 					22.18736806
@@ -1318,7 +1318,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820006,
-				"name": "嘉模堂区",
+				"name": "Our Lady of Carmel Parish",
 				"center": [
 					113.5587044,
 					22.15375944
@@ -1612,7 +1612,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820007,
-				"name": "路凼填海区",
+				"name": "Cotai Reclamation Area",
 				"center": [
 					113.5695992,
 					22.13663
@@ -1994,7 +1994,7 @@
 			"type": "Feature",
 			"properties": {
 				"adcode": 820008,
-				"name": "圣方济各堂区",
+				"name": "St. Francis Parish",
 				"center": [
 					113.5599542,
 					22.12348639

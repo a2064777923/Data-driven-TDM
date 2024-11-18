@@ -9,7 +9,7 @@
           <el-popover
             :visible="hoveredCardRow1 !== ''"
             placement="top"
-            width="400"
+            width="500"
             trigger="hover"
           >
 		  
@@ -31,7 +31,7 @@
       <el-popover
         :visible="hoveredCardRow2 !== ''"
         placement="top"
-        width="400"
+        width="500"
         trigger="manual"
       >
       

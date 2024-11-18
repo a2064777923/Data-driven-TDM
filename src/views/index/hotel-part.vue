@@ -1,25 +1,41 @@
 <template>
-  <div>
-	<div class="container">
-    <el-slider
-      v-model="currentYear"
-      :min="2013"
-      :max="2024"
-      :step="1"
-      :marks="marks"
-      show-tooltip
-      @change="updateChart"
-	  style="height: 250px; width: 15px; font-size: 8px; color: black;"
-	  vertical
-	  class="vertical-slider"
-    ></el-slider>
-	<div id = "chartBox">
-		<div id="chart" style="width:600px; height:250px;"></div>
-	</div>
-	</div>
-    <el-button size="small" @click="toggleMainlandChina">Toggle Mainland China</el-button>
-    <el-button size="small" @click="toggleHongKong" style="margin-left: 10px">Toggle Hong Kong</el-button>
-     <el-button size="small" @click="toggleMacau" style="margin-left: 10px">Toggle Macau</el-button>
+  <div class="main-container">
+    <!-- Slider Container -->
+    <div class="slider-container">
+      <el-slider
+        v-model="currentYear"
+        :min="2013"
+        :max="2024"
+        :step="1"
+        :marks="marks"
+        show-tooltip
+        @change="updateChart"
+        style="height: 250px; width: 15px; font-size: 8px; color: grey;"
+        vertical
+        class="vertical-slider"
+      ></el-slider>
+    </div>
+
+    <!-- Chart Container -->
+    <div class="chart-container" id="chartBox">
+      <div id="chart" style="width:600px; height:250px;"></div>
+      
+<!-- Overlay toggle checkboxes -->
+<div class="toggle-buttons">
+
+  <el-checkbox size="small" v-model="isMainlandChinaVisible" @change="updateChart">
+    Mainland CN
+  </el-checkbox>
+  <el-checkbox size="small" v-model="isHongKongVisible" @change="updateChart" style="margin-top: 10px">
+    HK
+  </el-checkbox>
+  <el-checkbox size="small" v-model="isMacauVisible" @change="updateChart" style="margin-top: 10px">
+    MO
+  </el-checkbox>
+
+</div>
+
+    </div>
   </div>
 </template>
 
@@ -27,7 +43,27 @@
 import { ref, onMounted } from 'vue';
 import * as echarts from 'echarts';
 import { ElSlider, ElButton } from 'element-plus';
-
+const originFullNames = {
+  CN: "Mainland China",
+  HK: "Hong Kong",
+  MO: "Macau",
+  TW: "Taiwan",
+  JP: "Japan",
+  IN: "India",
+  ID: "Indonesia",
+  MY: "Malaysia",
+  KR: "Korea",
+  SG: "Singapore",
+  TH: "Thailand",
+  OAS: "Other countries/regions in Asia",
+  US: "The United States",
+  OAM: "Other countries/regions in Americas",
+  UK: "The United Kingdom",
+  OE: "Other countries/regions in Europe",
+  AU: "Australia",
+  OO: "Other countries/regions in Oceania",
+  OT: "Others",
+};
 const dataByYear = {
   "2013": [
     {
@@ -1881,7 +1917,7 @@ const dataByYear = {
   ]
 };
 const hotelCategories = ['5 Star', '4 Star', '3 Star', '2 Star', 'Econ Accomm'];
-const colors = ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'];
+const colors = ['#5470c6', '#92cc75', '#ebbd55', '#ee6666', '#73c0de'];
 
 const currentYear = ref(2013);
 const isMainlandChinaVisible = ref(false);
@@ -1918,7 +1954,7 @@ const updateChart = () => {
     name: category,
     type: 'bar',
     stack: 'total',
-    label: { show: true },
+    label: { show: false },
     emphasis: { focus: 'series' },
     data: filteredData.map(item => item[category] || 0),
     itemStyle: { color: colors[index] },
@@ -1927,39 +1963,62 @@ const updateChart = () => {
   const option = {
     textStyle: {
 	    fontSize: 8, // 可以根据需要调整字体大小
-		color: '#c5b910',
+		color: '#6b7280',
     },
+	toolbox:{
+		feature:{
+			saveAsImage:{}
+		},
+	bottom:'40%',
+	},
   tooltip: {
-    trigger: 'axis',
-    axisPointer: { type: 'shadow' }, // 确保类型为 'shadow'
-  },
+      trigger: 'item',
+          formatter: function (params) {
+            const originShort = params.name; // Get the short form (e.g., "CN")
+            const originFull = originFullNames[originShort] || originShort; // Map to full name or fallback to short
+            const originData = filteredData.find(item => item.Origin === originShort);
+            if (originData) {
+              const totalValue = hotelCategories.reduce((sum, category) => sum + (originData[category] || 0), 0);
+              const value = originData[params.seriesName];
+              const percentage = ((value / totalValue) * 100).toFixed(2);
+              return `
+                <strong>${originFull}</strong><br/>
+                ${params.seriesName} <br/>
+                Value: ${value}<br/>
+                Percentage: ${percentage}%
+              `;
+            }
+        return '';
+          },
+      },
     legend: {
       data: hotelCategories,
       itemWidth: 8, // 设置图例标记的宽度
       itemHeight: 4, // 设置图例标记的高度
 	  textStyle: {
         fontSize: 8, // 设置图例文字的大小
-        color: '#c5b910', // 设置图例文字的颜色
-      }
+        color: 'grey', // 设置图例文字的颜色
+      },
+      top: '0%',  // Adjust this value to move the legend up or down
     },
     grid: { left: '3%', right: '4%', bottom: '5%', top: '4%', containLabel: true },
     xAxis: { 
       type: 'value',
       name: 'Person-Time',
       nameLocation: 'middle',
-      nameGap: 10,
-	  nameTextStyle: {  color: "#55aa7f" },
+      nameGap: 15,
+	  nameTextStyle: {  color: "#6b7280" },
       axisLabel:{
 		fontSize: 8,
-      	color: "#55aa7f"
+      	color: "#6b7280"
       }
     },
     yAxis: { type: 'category', data: origins, name: 'Origins of the visitors', 
-			axisLabel:{
-				fontSize: 8,
-				color: "#55aa7f"
-			},
-			nameLocation: 'middle', nameGap: 30 },
+		axisLabel:{
+			fontSize: 8,
+			color: "#6b7280"
+		},
+		nameLocation: 'middle', nameGap: 30 },
     series: seriesData,
   };
   
@@ -1991,16 +2050,39 @@ onMounted(() => {
 </script>
 
 <style scoped>
+/* Main container to hold both slider and chart containers side by side */
+.main-container {
+  display: flex;
+}
+
+/* Slider container styling */
+.slider-container {
+  margin-right: 20px;
+}
+
+/* Chart container styling */
+.chart-container {
+  position: relative;
+  width: 600px; /* Adjust width as needed */
+}
+
+/* Chart styling */
 #chart {
+  width: 100%;
   height: 250px;
-  margin-top: 10px;
 }
 
-.container {
-  display: flex; /* 使用 Flexbox 布局 */
+/* Toggle buttons positioned in the top-right corner of the chart */
+.toggle-buttons {
+  position: absolute;
+  top: 10px;   /* Adjust as needed */
+  right: 10px; /* Adjust as needed */
+  display: flex;
+  flex-direction: column;
+  --_clr-primary: #666;
+  --_clr-hover: #f33195;
+  --_clr-checked: #127acf;
 }
-
-
 .vertical-slider {
   width: 15px;
   height: 250px; /* 根据需要调整高度 */
@@ -2009,6 +2091,6 @@ onMounted(() => {
 
 ::v-deep .el-slider__marks-text {
   font-size: 8px; /* 设置字体大小 */
-  color: cadetblue; /* 设置字体颜色 */
+  color: grey; /* 设置字体颜色 */
   }
 </style>

@@ -79,7 +79,7 @@ const renderChart = () =>{
 	    textStyle: {
 	      fontSize: 10,
 	      fontWeight: 'bold',
-		  color:'#ec9d00'
+		  color:'#4b5563'
 	    }
 	  },
 	  tooltip: {
@@ -93,12 +93,12 @@ const renderChart = () =>{
 	  },
 	  legend: {
 	    data: data.map(item => item.name),
-	    top: '5%',
-	    width: '80%',
+	    top: '10%',
+	    width: '100%',
 	    left: 'center',
 		textStyle:{
-			fontSize:8,
-			color:'#c5b910'
+			fontSize:7,
+			color:'#6b7280'
 		}
 	  },
 	  toolbox: {
@@ -119,7 +119,7 @@ const renderChart = () =>{
 	      boundaryGap: false,
 	      data: categories,
 		  axisLabel:{
-			  color:'#ffaa7f'
+			  color:'#6b7280'
 		  }
 	    }
 	  ],
@@ -127,7 +127,11 @@ const renderChart = () =>{
 	    {
 	      type: 'value',
 		  axisLabel:{
+					  show: false,
 		  			  color:'#ffaa7f'
+		  },
+		  splitLine:{
+			  show:false
 		  }
 	    }
 	  ],

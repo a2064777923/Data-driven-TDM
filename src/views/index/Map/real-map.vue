@@ -11,7 +11,7 @@
 		<el-tag class="map-tags" 
 				v-for="type in types" :key='type' 
 				@click="toggleMarkers(type)" 
-				:style="{ backgroundColor: getTagColor(type) }"
+				:style="{backgroundColor: getTagColor(type) }"
 				:closable="false">
 			{{ type }}
 		</el-tag>
@@ -29,17 +29,17 @@
 	import 'element-plus/theme-chalk/index.css';
 	import AMapLoader from '@amap/amap-jsapi-loader';
 	import HotelMapDetail from './hotel-map-detail.vue';
-	const types = ['饮水机', '公共厕所', '休息区','酒店'];
-	const selectedTypes = ref(['饮水机', '公共厕所', '休息区','酒店']);
+	const types = ['Drinking', 'Toilet', 'Rest','Hotel'];
+	const selectedTypes = ref(['Drinking', 'Toilet', 'Rest','Hotel']);
 	const dialogVisible = ref(false)
 	const selectedHotelName = ref('');
 	
 	function getTagColor (type){
 	    const colors = {
-	      '饮水机': '#00aaff',
-	      '公共厕所': '#aaff7f',
-	      '休息区': '#ffaa00',
-	      '酒店': '#aa55ff'
+	      'Drinking': '#00aaff',
+	      'Toilet': '#aaff7f',
+	      'Rest': '#ffaa00',
+	      'Hotel': '#aa55ff'
 	    };
 	    return selectedTypes.value.includes(type) ? colors[type] : 'grey';
 	  }
@@ -51,7 +51,7 @@
 			  return '#aaff7f'
 		  }else if(type == 'restarea'){
 			  return '#ffaa00'
-		  }else if(type == 'hotel'){
+		  }else if(type == 'Hotel'){
 			  return '#aa55ff'
 		  }
 	    }
@@ -3195,21 +3195,22 @@ const hotelData = [
 		  map = new AMap.Map("container", {
 			// 设置地图容器id
 			pitch: 50,
-			viewMode: "3D", // 是否为3D地图模式
+			viewMode: "2D", // 是否为3D地图模式
 			zoom: zoom.value, // 初始化地图级别
 			center: center.value, // 初始化地图中心点位置
-			lang: "en",
+			lang: "en", // 设置地图为英文
+			clickable: false // 设置地图不可点击
 		  });
 		  
 		  labelsLayer = new AMap.LabelsLayer({
-		    zooms: [3, 20],
+		    zooms: [1, 20],
 		    zIndex: 99,
 		    collision: false, //该层内标注是否避让
 		    allowCollision: true, //不同标注层之间是否避让  
 		  });
 		  
 		  map.add(labelsLayer);
-		  setTimeout(updateMarkers(),1);
+		  setTimeout(updateMarkers,100);
 		})
 		.catch((e) => {
 		  console.log(e);
@@ -3222,10 +3223,10 @@ const hotelData = [
 	
 
 	const markers = {
-		酒店: hotelData,
-		饮水机: waterFountains,
-		公共厕所: publicToilets,
-		休息区: restAreas,
+		Hotel: hotelData,
+		Drinking: waterFountains,
+		Toilet: publicToilets,
+		Rest: restAreas,
 		
 	};
 	const markerImages = {
@@ -3240,25 +3241,25 @@ const hotelData = [
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.water, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
-	  anchor: "center", //图片相对 position 的锚点，默认为 bottom-center
+	  anchor: "top-left", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	const restroomIcon = {
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.restroom, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
-	  anchor: "center", //图片相对 position 的锚点，默认为 bottom-center
+	  anchor: "top-left", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	const restareaIcon = {
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.restarea, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
-	  anchor: "center", //图片相对 position 的锚点，默认为 bottom-center
+	  anchor: "top-left", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	const hotelIcon = {
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.hotel, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
-	  anchor: "center", //图片相对 position 的锚点，默认为 bottom-center
+	  anchor: "top-left", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	
 	function handleHotelClick(hotelName) {
@@ -3276,6 +3277,14 @@ const hotelData = [
 		filteredMarkers.value.forEach((item)=>{
 			let icon;
 			let rankValue;
+			
+			// 计算偏移后的坐标
+			const offset = 0.004;
+			const offsetPosition = [
+				item.value[0] + offset + 0.001, // x 坐标偏移
+				item.value[1] - offset + 0.003         // y 坐标偏移
+			];
+			
 			switch(item.type){
 				case 'water':
 					icon = waterIcon;
@@ -3296,8 +3305,8 @@ const hotelData = [
 			}
 			const labelMarker = new AMap.LabelMarker({
 				name: item.type,
-				position: item.value,
-				zIndex: 199,
+				position: offsetPosition,
+				zIndex: 1999,
 				rank: rankValue,
 				icon: icon,
 				clickable: true,
@@ -3323,6 +3332,7 @@ const hotelData = [
 		labelsLayer.add(labelMarkers);
 	}
 
+/*
 	const offset = 0.004;
 	Object.values(markers).forEach(typeMarkers =>
 		typeMarkers.forEach(item => {
@@ -3330,6 +3340,7 @@ const hotelData = [
 			item.value[1] -= offset;
 		})
 	);
+	*/
 
 	const filteredMarkers = computed(() =>
 		selectedTypes.value.flatMap(type => markers[type])
@@ -3361,6 +3372,7 @@ const hotelData = [
 	    z-index: 1000; /* 确保它在地图上层 */
 	}
 	.map-tags{
+		color: black !important;
 		margin-right: 8px; /* 控制标签间距 */
 	}
 	.dialog{

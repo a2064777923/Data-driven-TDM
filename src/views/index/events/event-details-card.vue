@@ -1,5 +1,5 @@
 <template>
-  <figure v-if="review" class="bg-white shadow-md rounded-lg p-6 max-w-md mx-auto">
+  <figure v-if="review" class="bg-white shadow-md rounded-lg p-6 max-w-lg mx-auto">
     <div class="flex flex-col items-start gap-4">
       <div class="w-full">
         <figcaption class="text-lg font-semibold text-gray-900 text-wrap mb-2">

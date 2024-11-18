@@ -1,7 +1,20 @@
 <template>
   <div>
-    <div id="year">{{ currentYearDisplay }}</div>
-    <div ref="chartDom" id="chart1" class="chart"></div> <!-- 使用 ref 替代 id -->
+    <div class="chart-container">
+      <el-slider
+        v-model="currentYear"
+        :min="minYear"
+        :max="maxYear"
+        :step="1"
+        :marks="marks"
+        show-tooltip
+        @change="updateChart"
+        style="height: 200px; width: 15px; font-size: 8px; color: grey;"
+        vertical
+        class="vertical-slider"
+      ></el-slider>
+      <div ref="chartDom" id="chart1" class="chart"></div>
+    </div>
   </div>
 </template>
 
@@ -19,40 +32,64 @@ export default {
     ];
 
     const themes1 = ['Government Meeting', 'Association Meeting', 'Corporate Meeting', 'Conference'];
-    const colors = ['#FF0000', '#0000FF', '#00FF00', '#006400'];
+    const colors = ['#5470c6', '#92cc75', '#ebbd55', '#ee6666'];
 
-    const currentYear = ref(0);
-    const chartDom = ref(null); // 用ref来引用DOM
+    const minYear = 2013;
+    const maxYear = 2021;
+    const currentYear = ref(minYear);
+
+    const marks = {
+      [minYear]: '2013', [minYear + 1]: '2014', [minYear + 2]: '2015',
+      [minYear + 3]: '2016', [minYear + 4]: '2017', [minYear + 5]: '2018',
+      [minYear + 6]: '2019', [minYear + 7]: '2020', [maxYear]: '2021'
+    };
+
+    const chartDom = ref(null);
     let myChart = null;
 
-    const currentYearDisplay = computed(() => `Current year: ${2015 + currentYear.value}`);
+    const updateChart = () => {
+      const dataIndex = currentYear.value - minYear;
+      const data = rawData1[dataIndex];
 
-    const updateChart = (data, themes) => {
       const sortedIndices = data.map((value, index) => ({ value, index }))
-                               .sort((a, b) => b.value - a.value)
-                               .map(item => item.index);
+                                .sort((a, b) => b.value - a.value)
+                                .map(item => item.index);
 
       const option = {
-        title: {
-          text: "Participants & Attendees(No.)",
-          left: "center",
-          textStyle: {
-            fontSize: 16,
-          },
-        },
+        //title: {
+          //text: "Participants & Attendees(No.)",
+          //left: "center",
+          //top: "0%",
+          //textStyle: {
+          //  fontSize: 16,
+          //},
+        //},
         tooltip: {
           trigger: 'item',
-          formatter: '{a} <br/>{b} : {c} ({d}%)'
+          formatter: '{b} : {c} ({d}%)'
         },
+        toolbox: {
+	        feature: {
+	        saveAsImage: {}
+	      }
+	      },
         legend: {
-          top: '5%',
-          left: 'center'
-        },
+          orient: 'horizontal', // Change to 'horizontal' or 'vertical' as needed
+          top: '0%', // Adjust the top value to move the legend up or down
+          left: 'center', // Center the legend horizontally
+          padding: [0, 20], // Add padding around the legend
+          textStyle: {
+                      color: 'grey', // Set font color to grey
+                      fontSize: 8 // Set font size (adjust as needed)
+                      }
+                },
         series: [{
-          name: '会展活动',
+          name: 'Event Type',
           type: 'pie',
+          top: '5%',
           radius: ['40%', '70%'],
-          avoidLabelOverlap: false,
+          //center: ['50%', '50%'], 
+          avoidLabelOverlap: true,
           label: {
             show: true,
             position: 'inside',
@@ -70,11 +107,11 @@ export default {
             }
           },
           labelLine: {
-            show: false
+            show: true
           },
           data: data.map((value, index) => ({
             value,
-            name: themes[index],
+            name: themes1[index],
             itemStyle: {
               color: index === sortedIndices[0] ? colors[0] :
                      index === sortedIndices[1] ? colors[1] :
@@ -88,29 +125,33 @@ export default {
       myChart.setOption(option);
     };
 
-    const updateData = () => {
-      updateChart(rawData1[currentYear.value], themes1);
-      currentYear.value = (currentYear.value + 1) % rawData1.length;
-    };
-
     onMounted(() => {
-      myChart = echarts.init(chartDom.value); // 初始化图表
-      updateData();
-      setInterval(updateData, 3000);
+      myChart = echarts.init(chartDom.value);
+      updateChart();
     });
 
     return {
-      currentYearDisplay,
-      chartDom // 返回ref以便在template中使用
+      currentYear,
+      chartDom,
+      marks,
+      updateChart,
+      minYear,
+      maxYear
     };
   }
 }
 </script>
 
 <style scoped>
+.chart-container {
+  display: flex;
+  align-items: flex-start; /* Aligns the slider and chart at the top */
+}
+
 .chart {
   width: 100%;
   height: 250px;
+  margin-left: 5px; /* Adjust as needed to create space between slider and chart */
 }
 
 #year {
@@ -118,4 +159,13 @@ export default {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
+.vertical-slider {
+  margin-right: 20px;
+}
+
+::v-deep .el-slider__marks-text {
+  font-size: 8px; /* 设置字体大小 */
+  color: grey; /* 设置字体颜色 */
+  }
 </style>
