@@ -63,16 +63,19 @@
 					        </div>
 					      </el-card>
 					      <el-card class="half-width-card">
-					        <!-- 空卡片放置其他内容 -->
+					        <img
+					              :src="hotelData.hotelImgURL"
+					              style="width: 100%"
+					            />
 					      </el-card>
 					</div>
-					<el-card class="full-width-card">
+					<el-card class="full-width-card" style="background-color: #2a2a2a;">
 					      <HotelPriceHistory class="price-chart"></HotelPriceHistory>
 					</el-card>
 						
 					<div class="card-row">
 					      <el-card class="half-width-card">
-					        <h3>Room Price</h3>
+					        <h3>Room Price(MOP)</h3>
 					        <ul>
 					          <li v-for="(price, index) in parsedPrices" :key="index">
 					            <a-bank />
@@ -84,9 +87,9 @@
 					        <h3>Price Comparison</h3>
 					        <div v-for="comparison in priceComparisons" :key="comparison.label">
 					          <a-arrow-up :style="{color:comparison.color}" v-if="comparison.change[0] === '↑'" />
-							  <a-arrow-up :style="{color:comparison.color}" v-if="comparison.change[0] === '↓'" />
+							  <a-arrow-down :style="{color:comparison.color}" v-if="comparison.change[0] === '↓'" />
 	
-					          {{ comparison.label }}: <span :style="{ color: comparison.color }">{{ comparison.value }}</span> ({{ comparison.change }})
+					          {{ comparison.label }}:<br> <span :style="{ color: comparison.color }">{{ comparison.value }}</span> ({{ comparison.change }})
 					        </div>
 					      </el-card>
 					</div>
@@ -446,20 +449,20 @@ components: {
 			  const currentLowestPrice = Math.min(...parsedPrices.value.map(p => p.price));
 			  const comparisons = [
 				{
-				  label: '上年同期价格',
-				  value: hotelData.value.sameStandandPriceLastYearThisMonth,
+				  label: "Prices of same-standard's in the same month last year",
+				  value: hotelData.value.sameStandardPriceLastYearThisMonth,
 				  change: '',
 				  color: ''
 				},
 				{
-				  label: '上年平均价格',
+				  label: 'Average prices for all hotels in last year',
 				  value: hotelData.value.averagePriceLastYearThisMonth,
 				  change: '',
 				  color: ''
 				},
 				{
-				  label: '历史最低价格',
-				  value: hotelData.value.sameStandandPriceOverHistory,
+				  label: 'Historical average prices of same-standard hotels',
+				  value: hotelData.value.sameStandardPriceOverHistory,
 				  change: '',
 				  color: ''
 				},

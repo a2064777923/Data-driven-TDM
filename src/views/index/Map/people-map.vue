@@ -69,7 +69,7 @@ const initializeMap = async () => {
         max: 51430800,
         left: 'left',
         top: 'bottom',
-        text: ['高', '低'],
+        text: ['high', 'low'],
         calculable: true,
         inRange: {
           color: ['#f8f5f0', '#fcd7c4', '#efa37f', '#d65f4f', '#b4202e']

@@ -151,7 +151,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[],yData3: numbe
                 padding: [7, 14],
                 borderWidth: 0.5,
                 borderColor: "rgba(252,144,16,.5)",
-                formatter: "Stay Time:：{c} days",
+                formatter: "{c}",
               },
             },
             {
