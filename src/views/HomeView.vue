@@ -42,7 +42,7 @@ const wrapperStyle = {};
   box-sizing: border-box;
   //background-image: url("@/assets/img/macauBackground.png");
   background-size: cover;
-  background-color: rgba(231, 229, 228, 1.0); // 添加半透明的背景颜色
+  background-color: rgba(239, 246, 255, 1.0); // 添加半透明的背景颜色
   //filter: saturate(0.9); // 调整饱和度，0.5 表示减少饱和度为原来的50%
   background-position: center center;
 }

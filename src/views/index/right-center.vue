@@ -127,14 +127,16 @@ const setOption = () =>{
 		  xAxis: {
 		    type: 'value',
 			axisLabel:{
-				color: "#6b7280"
+				color: "#6b7280",
+				fontSize: 8,
 			}
 		  },
 		  yAxis: {
 		    type: 'category',
 		    data: yAxisData,
 			axisLabel:{
-				color: "#6b7280"
+				color: "#6b7280",
+				fontSize: 8,
 			}
 		  },
 		series: seriesData

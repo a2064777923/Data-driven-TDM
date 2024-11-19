@@ -1,9 +1,9 @@
 <template>
   <ShineBorder
-    className="relative flex h-[315px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border bg-background md:shadow-xl"
+    className="relative flex h-[315px] w-full flex-col items-center justify-center overflow-hidden rounded-lg border-2 bg-background-indigo-200 md:shadow-xl"
     :color="['#A07CFE', '#FE8FB5', '#FFBE7B']"
   >
-    <div class="relative flex h-[315px] w-full flex-col items-center justify-center overflow-hidden rounded-md border bg-gray-200 bg-opacity-80 md:shadow-xl">
+    <div class="relative flex h-[315px] w-full flex-col items-center justify-center overflow-hidden rounded-md border bg-cyan-50 bg-opacity-80 md:shadow-xl">
       
           
           <el-popover

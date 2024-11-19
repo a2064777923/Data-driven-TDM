@@ -14,7 +14,7 @@
     ></el-slider>
     <div id= "consumptionChart" ref="chartContainer"></div>
   </div>
-  <el-button size="small" @click="toggleCarousel" style="margin-top: -30px;">>
+  <el-button size="small" @click="toggleCarousel" style="margin-top: -30px;" class="button">
     {{ isRunning ? 'Stop Play' : 'Auto Play' }}
   </el-button>
 </template>
@@ -186,6 +186,12 @@ export default {
 #consumptionChart{
 	width: 650px; 
 	height: 250px;
+}
+.button{
+	font-size: 8px; /* 更改字体大小 */
+	color: #1C1A1C;
+	border-radius: 5px;
+	background-color: #5eead4;
 }
 .container {
   display: flex; /* 使用 Flexbox 布局 */

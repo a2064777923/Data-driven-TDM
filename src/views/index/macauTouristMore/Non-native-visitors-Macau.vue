@@ -1,24 +1,48 @@
 <template>
   <div class="bg-gray-100 min-w-max flex flex-col items-center justify-center">
-      <div id="myChart" ref="visitorsChart" class="h-96 bg-white min-w-max shadow-md"></div>
-      <div class="button-container mt-2 ">
-        <el-button type="primary" @click="toggle">{{ isPaused ? 'Resume' : 'Pause' }}</el-button>
-      </div>
-   </div>
+    <div id="myChart" ref="visitorsChart" class="h-96 bg-white min-w-max shadow-md"></div>
+    <el-slider
+      v-model="selectedYear"
+      :min="2013"
+      :max="2023"
+      :step="1"
+      :marks="yearMarks"
+      show-tooltip
+      @change="onYearChange"
+      style="width: 80%; margin-top: 20px;"
+    ></el-slider>
+	<!--
+    <el-button size="small" @click="toggle">{{ isPaused ? 'Resume' : 'Pause' }}</el-button>
+  -->
+  </div>
 </template>
 
 <script>
-import { onMounted,onUnmounted, ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 import * as echarts from 'echarts';
 import 'element-plus/dist/index.css';
 
 export default {
   setup() {
-	const visitorsChart = ref(null);
-	let myChart = null;
+    const visitorsChart = ref(null);
+    let myChart = null;
     const isPaused = ref(false);
-    let chart;
-    let interval;
+	let interval;
+    const yearMarks = {
+      2013: '2013',
+      2014: '2014',
+      2015: '2015',
+	  2016: '2016',
+	  2017: '2017',
+	  2018: '2018',
+	  2019: '2019',
+	  2020: '2020',
+	  2021: '2021',
+	  2022: '2022',
+	  2023: '2023'
+    };
+    const selectedYear = ref(2013);
+
     const data = [
       {
     "year": "2013",
@@ -396,148 +420,141 @@ export default {
       "Other": 9424
     }
   }];
-    let currentIndex = 0;
-
-    const regionColors = {
-      "Philippines": '#36A2EB',
-      "India": '#FFCE56',
-      "Indonesia": '#4BC0C0',
-      "Japan": '#9966FF',
-      "Malaysia": '#FF9F40',
-      "Korea": '#FF6384',
-      "Singapore": '#36A2EB',
-      "Thailand": '#FFCE56',
-      "Vietnam": '#4BC0C0',
-      "Other Asia": '#9966FF',
-      "Brazil": '#FF9F40',
-      "Canada": '#FF6384',
-      "USA": '#36A2EB',
-      "Other America": '#FFCE56',
-      "Germany": '#4BC0C0',
-      "Spain": '#9966FF',
-      "Russia": '#FF9F40',
-      "France": '#FF6384',
-      "Netherlands": '#36A2EB',
-      "Italy": '#FFCE56',
-      "Portugal": '#4BC0C0',
-      "UK": '#9966FF',
-      "Switzerland": '#FF9F40',
-      "Other Europe": '#FF6384',
-      "Australia": '#36A2EB',
-      "New Zealand": '#FFCE56',
-      "Other Oceania": '#4BC0C0',
-      "South Africa": '#9966FF',
-      "Other": '#FF9F40'
-    };
+  let currentIndex = 0;
+  
+  const regionColors = {
+    "Philippines": '#36A2EB',
+    "India": '#FFCE56',
+    "Indonesia": '#4BC0C0',
+    "Japan": '#9966FF',
+    "Malaysia": '#FF9F40',
+    "Korea": '#FF6384',
+    "Singapore": '#36A2EB',
+    "Thailand": '#FFCE56',
+    "Vietnam": '#4BC0C0',
+    "Other Asia": '#9966FF',
+    "Brazil": '#FF9F40',
+    "Canada": '#FF6384',
+    "USA": '#36A2EB',
+    "Other America": '#FFCE56',
+    "Germany": '#4BC0C0',
+    "Spain": '#9966FF',
+    "Russia": '#FF9F40',
+    "France": '#FF6384',
+    "Netherlands": '#36A2EB',
+    "Italy": '#FFCE56',
+    "Portugal": '#4BC0C0',
+    "UK": '#9966FF',
+    "Switzerland": '#FF9F40',
+    "Other Europe": '#FF6384',
+    "Australia": '#36A2EB',
+    "New Zealand": '#FFCE56',
+    "Other Oceania": '#4BC0C0',
+    "South Africa": '#9966FF',
+    "Other": '#FF9F40'
+  };
 
     const updateChart = () => {
-      // Ensure the data is sorted and sliced
-      const currentData = data[currentIndex];
+      const currentData = data.find(d => d.year === selectedYear.value.toString());
       const sortedData = Object.entries(currentData.values).sort((a, b) => b[1] - a[1]).slice(0, 15);
 
       const option = {
-              title: {
-                text: 'Non-native visitors to Macau - ' + currentData.year,
-                left: 'center',
-                textStyle: {
-                  fontSize: 24,
-                  color: 'grey'
-                }
-              },
-              tooltip: {
-                trigger: 'axis',
-                axisPointer: {
-                  type: 'shadow'
-                }
-              },
-              xAxis: {
-                type: 'value',
-                axisLabel: {
-                  formatter: '{value}',
-                  color: 'grey'
-                }
-              },
-              yAxis: {
-                type: 'category',
-                data: sortedData.map(item => item[0]),
-                axisLabel: {
-                  interval: 0,
-                  rotate: 30,
-                  color: 'grey'
-                },
-                inverse: true
-              },
-              toolbox: {
-      	          feature: {
-      	          saveAsImage: {}
-      	        }
-      	      },
-              series: [{
-                type: 'bar',
-                data: sortedData.map(item => ({
-                  value: item[1],
-                  label: {
-                    show: true,
-                    position: 'right',
-                    formatter: '{c}',
-                    color: 'grey'
-                  },
-                  itemStyle: {
-                    color: regionColors[item[0]]
-                  }
-                })),
-                itemStyle: {
-                  borderRadius: [5, 5, 0, 0]
-                }
-              }],
-              animationDurationUpdate: 1000,
-              animationEasingUpdate: 'quinticInOut'
-            };
+        title: {
+          text: 'Non-native visitors to Macau - ' + currentData.year,
+          left: 'center',
+          textStyle: {
+            fontSize: 24,
+            color: 'grey'
+          }
+        },
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'shadow'
+          }
+        },
+		grid:{
+			left:"15%",
+		},
+        xAxis: {
+          type: 'value',
+          axisLabel: {
+            formatter: '{value}',
+            color: 'grey'
+          }
+        },
+        yAxis: {
+          type: 'category',
+          data: sortedData.map(item => item[0]),
+          axisLabel: {
+            interval: 0,
+            rotate: 30,
+            color: 'grey'
+          },
+          inverse: true
+        },
+        series: [{
+          type: 'bar',
+          data: sortedData.map(item => ({
+            value: item[1],
+            itemStyle: {
+              color: regionColors[item[0]]
+            }
+          })),
+          itemStyle: {
+            borderRadius: [5, 5, 0, 0]
+          }
+        }],
+        animationDurationUpdate: 1000,
+        animationEasingUpdate: 'quinticInOut'
+      };
 
       myChart.setOption(option);
-      currentIndex = (currentIndex + 1) % data.length;
+	  currentIndex = (currentIndex + 1) % data.length;
     };
 
-    const startInterval = () => {
-      interval = setInterval(updateChart, 2000);
+    const onYearChange = () => {
+      updateChart();
     };
 
     const toggle = () => {
       if (isPaused.value) {
-        startInterval();
-      } else {
-        clearInterval(interval);
+        updateChart();
       }
       isPaused.value = !isPaused.value;
     };
+	
+	const startInterval = () => {
+	  interval = setInterval(updateChart, 2000);
+	};
 
     onMounted(() => {
       myChart = echarts.init(visitorsChart.value);
-      startInterval();
+      updateChart(); // Initialize chart with the default year
+
     });
-	
-	onUnmounted(()=>{
-		if(myChart){
-			myChart.dispose();
-			clearInterval(interval);
-		}
-	});
+
+    onUnmounted(() => {
+      if (myChart) {
+        myChart.dispose();
+      }
+    });
 
     return {
+      visitorsChart,
+      yearMarks,
+      selectedYear,
       toggle,
       isPaused,
-	  visitorsChart
+      onYearChange
     };
   }
 };
 </script>
 
 <style scoped>
-.button-container {
-  display: flex;
-  justify-content: center;
-}
-#myChart{
-	width: 600px;
+#myChart {
+  width: 600px;
+  margin-left:30px;
 }
 </style>

@@ -3203,14 +3203,14 @@ const hotelData = [
 		  });
 		  
 		  labelsLayer = new AMap.LabelsLayer({
-		    zooms: [1, 20],
-		    zIndex: 99,
+		    zooms: [2, 20],
+		    zIndex: 999,
 		    collision: false, //该层内标注是否避让
 		    allowCollision: true, //不同标注层之间是否避让  
 		  });
 		  
 		  map.add(labelsLayer);
-		  setTimeout(updateMarkers,100);
+		  setTimeout(updateMarkers,500);
 		})
 		.catch((e) => {
 		  console.log(e);
@@ -3259,7 +3259,7 @@ const hotelData = [
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.hotel, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
-	  anchor: "top-left", //图片相对 position 的锚点，默认为 bottom-center
+	  anchor: "bottom-center", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	
 	function handleHotelClick(hotelName) {
@@ -3282,7 +3282,7 @@ const hotelData = [
 			const offset = 0.004;
 			const offsetPosition = [
 				item.value[0] + offset + 0.001, // x 坐标偏移
-				item.value[1] - offset + 0.003         // y 坐标偏移
+				item.value[1] - offset         // y 坐标偏移
 			];
 			
 			switch(item.type){
@@ -3363,12 +3363,12 @@ const hotelData = [
 <style scoped>
 	#container{
 		width:100%;
-		height:510px;
+		height:500px;
 	}
 	.map-tags-container {
 	    position: absolute;
-	    top: 10px;
-	    left: 10px;
+	    top: -10px;
+	    left: 35px;
 	    z-index: 1000; /* 确保它在地图上层 */
 	}
 	.map-tags{

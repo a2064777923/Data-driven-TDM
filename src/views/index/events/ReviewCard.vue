@@ -26,7 +26,7 @@ const props = defineProps({
 
 const figureClasses = computed(() => cn(
   "relative h-[120px] w-64 cursor-pointer overflow-hidden rounded-md border p-4",
-  "border-gray-950/[.1] bg-slate-500/[.1] hover:bg-stone-500/[.05]",
-  "border-slate-500/[.1]  dark:hover:bg-gray-50/[.15]"
+  "border-violet-950/[.1] bg-blue-300/[.1] hover:bg-stone-500/[.05]",
+  "border-violet-700/[.1]  dark:hover:bg-gray-50/[.15]"
 ));
 </script>

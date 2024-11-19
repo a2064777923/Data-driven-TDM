@@ -96,9 +96,11 @@ watch(option, (newOption) => {
 				      <RealMap v-if="activeName==='second'"/>
 				</div>
 		  	</el-tab-pane>
+			<!--
 		    <el-tab-pane label="Global visitors" name="third">
 		  		
 		  	</el-tab-pane>
+			-->
 		  </el-tabs>
 
       </BorderBox13>
@@ -154,12 +156,12 @@ watch(option, (newOption) => {
   
   .demo-tabs .el-tabs__content {
     padding: 0px; /* 去除内边距 */
-    margin-top: -80px; /* 根据需要调整此值，以减少与标签的间距 */
+    margin-top: -50px; /* 根据需要调整此值，以减少与标签的间距 */
   }
   
   .tab-content {
     padding: 0px; /* 可以根据需要调整内容的内边距 */
-	margin-top: -50px;
+	margin-top: -25px;
   }
 
 }
