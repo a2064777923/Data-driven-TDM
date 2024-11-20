@@ -286,12 +286,14 @@ components: {
 				   id: `review-${nounIndex}-${reviewIndex}`,
 				   name: review.comment.length > 15 ? review.comment.substring(0, 15) + '...' : review.comment,
 				   category: review.senti,
-				   info: `Commenter:${review.info.commenter}<br>
-				          Region:${review.info.region}<br>
-						  Room night:${review.info.room_night}<br>
-						  Members:${review.info.members}<br>
-						  Score: ${review.info.score}<br>
-						  Comment: ${review.comment}`,
+				   info: `<div style="white-space: normal;">
+							<strong>Commenter:</strong>${review.info.commenter}<br>
+				            <strong>Region:</strong>${review.info.region}<br>
+						    <strong>Room night:</strong>${review.info.room_night}<br>
+						    <strong>Members:</strong>${review.info.members}<br>
+						    <strong>Score:</strong> ${review.info.score}<br>
+						    <strong>Comment:</strong> ${review.comment}
+						  </div>`,
 				   itemStyle: { color: getColor(review.senti) },
 				   hidden: true
 				 }))

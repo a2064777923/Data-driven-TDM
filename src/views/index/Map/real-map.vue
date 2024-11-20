@@ -3194,11 +3194,12 @@ const hotelData = [
 		.then((AMap) => {
 		  map = new AMap.Map("container", {
 			// 设置地图容器id
+			lang: "en", // 设置地图为英文
 			pitch: 50,
 			viewMode: "2D", // 是否为3D地图模式
 			zoom: zoom.value, // 初始化地图级别
 			center: center.value, // 初始化地图中心点位置
-			lang: "en", // 设置地图为英文
+			
 			clickable: false // 设置地图不可点击
 		  });
 		  
@@ -3208,7 +3209,6 @@ const hotelData = [
 		    collision: false, //该层内标注是否避让
 		    allowCollision: true, //不同标注层之间是否避让  
 		  });
-		  
 		  map.add(labelsLayer);
 		  setTimeout(updateMarkers,500);
 		})
@@ -3259,6 +3259,7 @@ const hotelData = [
 	  type: "image", //图标类型，现阶段只支持 image 类型
 	  image: markerImages.hotel, //可访问的图片 URL
 	  size: [25, 25], //图片尺寸
+	  clipOrigin:[-20,-20] ,
 	  anchor: "bottom-center", //图片相对 position 的锚点，默认为 bottom-center
 	};
 	
@@ -3278,12 +3279,14 @@ const hotelData = [
 			let icon;
 			let rankValue;
 			
+			
 			// 计算偏移后的坐标
 			const offset = 0.004;
 			const offsetPosition = [
 				item.value[0] + offset + 0.001, // x 坐标偏移
 				item.value[1] - offset         // y 坐标偏移
 			];
+			
 			
 			switch(item.type){
 				case 'water':
@@ -3332,7 +3335,7 @@ const hotelData = [
 		labelsLayer.add(labelMarkers);
 	}
 
-/*
+/**
 	const offset = 0.004;
 	Object.values(markers).forEach(typeMarkers =>
 		typeMarkers.forEach(item => {
@@ -3340,7 +3343,8 @@ const hotelData = [
 			item.value[1] -= offset;
 		})
 	);
-	*/
+	**/
+	
 
 	const filteredMarkers = computed(() =>
 		selectedTypes.value.flatMap(type => markers[type])

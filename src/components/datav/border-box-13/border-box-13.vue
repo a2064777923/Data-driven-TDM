@@ -14,7 +14,7 @@ const props = defineProps({
     default: "transparent",
   },
 });
-const defaultColor = ["#6586ec", "#2cf7fe"];
+const defaultColor = ["#6d28d9", "#bfdbfe"];
 const domRef = ref(null);
 const { width, height } = useElementSize(domRef,{width:0,height:0}, { box: 'border-box' });
 const mergedColor = computed<[string, string]>(() => {

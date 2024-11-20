@@ -163,6 +163,31 @@ watch(option, (newOption) => {
     padding: 0px; /* 可以根据需要调整内容的内边距 */
 	margin-top: -25px;
   }
+/* 改变文字颜色和下划线距离 */
+::v-deep .el-tabs__item {
+  font-weight: 300;
+  font-size: 16px;
+  color: #292524;
+  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+/* 改变下划线背景色 */
+::v-deep .el-tabs__nav-wrap::after {
+  background-color: #ddd6fe;
+}
+
+/* 改变选择后的文字颜色 */
+::v-deep .el-tabs__item.is-active {
+  color: #eab308; /* 选中的文字颜色 */
+  opacity: 1;
+}
+
+/* 改变选择的下划线颜色 */
+::v-deep .el-tabs__active-bar {
+  background-color: #fef3c7; /* 下划线颜色 */
+}
 
 }
 </style>
