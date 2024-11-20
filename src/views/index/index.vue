@@ -305,18 +305,18 @@ const handleZoomClick = (name: string) =>{
 
 
 .small-button {
-  font-size: 8px; /* 更改字体大小 */
+  font-size: 10px; /* 更改字体大小 */
   padding: 5px 10px; /* 修改按钮大小 */
   position: absolute;
   color: #1C1A1C;
   border-radius: 5px;
   top: 10px; /* 向上移动按钮 */
-  right: 10px; /* 向右移动按钮 */
+  right: 12px; /* 向右移动按钮 */
   background-color: #818cf8;
 }
 
 .small-button-left {
-  font-size: 8px; /* 更改字体大小 */
+  font-size: 10px; /* 更改字体大小 */
   padding: 5px 10px; /* 修改按钮大小 */
   color: #1C1A1C;
   border-radius: 5px;
