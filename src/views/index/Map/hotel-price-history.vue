@@ -247,7 +247,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[],yData3: numbe
 		    smooth: true,
 		    symbol: "none", //去除点
 		    name: "four star hotel price",
-		    color: "rgba(85, 255, 0, 0.7)",
+		    color: "rgba(72, 217, 0, 0.7)",
 		    areaStyle: {
 		      //右，下，左，上
 		      color: new graphic.LinearGradient(
@@ -258,7 +258,7 @@ const setOption = async (xData: any[], yData: any[], yData2: any[],yData3: numbe
 		        [
 		          {
 		            offset: 0,
-		            color: "rgba(85, 255, 0, 0.7)",
+		            color: "rgba(68, 205, 0, 0.7)",
 		          },
 		          {
 		            offset: 1,

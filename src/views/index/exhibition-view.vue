@@ -34,14 +34,14 @@ export default {
     const themes1 = ['Government Meeting', 'Association Meeting', 'Corporate Meeting', 'Conference'];
     const colors = ['#5470c6', '#92cc75', '#ebbd55', '#ee6666'];
 
-    const minYear = 2013;
-    const maxYear = 2021;
+    const minYear = 2015;
+    const maxYear = 2023;
     const currentYear = ref(minYear);
 
     const marks = {
-      [minYear]: '2013', [minYear + 1]: '2014', [minYear + 2]: '2015',
-      [minYear + 3]: '2016', [minYear + 4]: '2017', [minYear + 5]: '2018',
-      [minYear + 6]: '2019', [minYear + 7]: '2020', [maxYear]: '2021'
+      [minYear]: '2015', [minYear + 1]: '2016', [minYear + 2]: '2017',
+      [minYear + 3]: '2018', [minYear + 4]: '2019', [minYear + 5]: '2020',
+      [minYear + 6]: '2021', [minYear + 7]: '2022', [maxYear]: '2023'
     };
 
     const chartDom = ref(null);
