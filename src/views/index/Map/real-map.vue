@@ -3313,12 +3313,14 @@ const hotelData = [
 				rank: rankValue,
 				icon: icon,
 				clickable: true,
+				/*
 				text:{
 					content: item.name,
 					style:{
 						strokeColor: getTagColorByEn(item.type)
 					}
 				},
+				*/
 			});
 			
 			
