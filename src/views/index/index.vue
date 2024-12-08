@@ -56,7 +56,7 @@ const handleZoomClick = (name: string) =>{
     <div class="contetn_left">
       <!-- <div class="pagetab">
       </div> -->
-      <ItemWrap class="contetn_left-top contetn_lr-item" title="Tourist Consumption">
+      <ItemWrap class="contetn_left-top contetn_lr-item" title="Consumer Price Index">
 		  <el-popover
 		  :visible="isMacauPriceExpand"
 		  placement="right-start"
@@ -84,7 +84,7 @@ const handleZoomClick = (name: string) =>{
       </ItemWrap>
 	  
 	  
-      <ItemWrap class="contetn_left-center contetn_lr-item" title="Service & Facilities">
+      <ItemWrap class="contetn_left-center contetn_lr-item" title="Tourist Satisfaction">
 
 		  
         <ServiceFacilities/>
@@ -108,7 +108,7 @@ const handleZoomClick = (name: string) =>{
 	
       <NewCenterMap class="contetn_center_top" title="Macau Map" />
 	  
-      <ItemWrap class="contetn_center-bottom" title="Hotel Occupancy by Origin">
+      <ItemWrap class="contetn_center-bottom" title="Hotel Related Data">
 		  <div>
 			  <el-popover
 			  :visible="isHotelPredictExpand && isOverNightExpand && isSameDayExpand"
@@ -180,7 +180,7 @@ const handleZoomClick = (name: string) =>{
       </ItemWrap>
     </div>
     <div class="contetn_right">
-      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="Macau Consumption">
+      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="Tourist Consumption Pattern">
 		<MacauConsumption/>
 		<button class="zoomButton" @click="handleZoomClick('Consumption')">
 		  <svg class="svgIcon" viewBox="0 0 384 512">
@@ -193,7 +193,7 @@ const handleZoomClick = (name: string) =>{
       </ItemWrap>
       <ItemWrap
         class="contetn_left-bottom contetn_lr-item"
-        title="Enter & Exit"
+        title="Tourist Flow"
         style="padding: 0 10px 16px 10px">
 	  <el-popover
 		  :visible="isVisitorStayExpand"
@@ -224,7 +224,7 @@ const handleZoomClick = (name: string) =>{
 		
       </ItemWrap>
 	  
-      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="Exhibition ">
+      <ItemWrap class="contetn_left-bottom contetn_lr-item" title="Exhibition Visitors">
 		  <el-button @click="exhibitionMoreVisible = true" size="small" class="small-button-left">
 		      {{exhibitionMoreVisible == true ?'Put away':'See more'}}
 		  </el-button>

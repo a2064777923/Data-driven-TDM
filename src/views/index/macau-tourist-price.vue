@@ -263,6 +263,16 @@ const setOption = () => {
   });
 
   option.value = {
+	title:{
+		text: "Consumer Price Index by Category (2009–2023)",
+		top: '-2%',
+		left: 'center',
+		textStyle: {
+		  fontSize: 10,
+		  fontWeight: 'bold',
+		  color:'#4b5563'
+		}
+	},
     textStyle: {
       fontSize: 7
     },
@@ -332,6 +342,9 @@ const setOption = () => {
     }],
     yAxis: [{
       type: "value",
+	  name: "Consumer Price Index",
+	  nameLocation: 'start',
+	  nameGap: 15,
       min: 0,
       splitNumber: 4,
       splitLine: {
@@ -345,9 +358,13 @@ const setOption = () => {
       axisLabel: {
         show: true,
         margin: 20,
+		
         //textStyle: { color: "#00aa00" },
       },
       axisTick: { show: false },
+	  nameTextStyle: { // 通过nameTextStyle来设置轴标签的文字样式
+	          fontSize: 9.5 // 这里设置字体大小为16px，你可以按需调整数值
+	      }
     }],
     series: seriesData,
   };

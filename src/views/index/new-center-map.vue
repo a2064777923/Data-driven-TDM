@@ -86,12 +86,12 @@ watch(option, (newOption) => {
     <div class="mapwrap">
       <BorderBox13>
 		  <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-		    <el-tab-pane label="Data Map" name="first">
+		    <el-tab-pane label="Tourist Distribution" name="first">
 		  		<div class="tab-content">
 		  		      <PeopleMap v-if="activeName==='first'"/>
 		  		</div>
 		  	</el-tab-pane>
-		    <el-tab-pane label="Real Map" name="second">
+		    <el-tab-pane label="Tourism Facilities" name="second">
 				<div class="tab-content">
 				      <RealMap v-if="activeName==='second'"/>
 				</div>

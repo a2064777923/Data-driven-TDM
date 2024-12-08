@@ -54,7 +54,7 @@ const initializeMap = async () => {
 
     const option = {
       title: {
-        text: '2024 Macau regional visitors',
+        text: 'Tourist Distribution by Parishes (2024)',
         left: 'center',
 		textStyle:{
 			fontSize:18,

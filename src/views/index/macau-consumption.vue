@@ -106,6 +106,16 @@ export default {
       }, 0);
 
       const option = {
+		title: {
+		  text: "Tourists' Consumption Breakdown by Category and Region",
+		  left: "center",
+		  top: "0%",
+			textStyle: {
+			  fontSize: 10,
+			  fontWeight: 'bold',
+			  color:'#4b5563'
+			},
+		},
         tooltip: {
           formatter: info => {
             const value = info.value;

@@ -56,14 +56,16 @@ export default {
                                 .map(item => item.index);
 
       const option = {
-        //title: {
-          //text: "Participants & Attendees(No.)",
-          //left: "center",
-          //top: "0%",
-          //textStyle: {
-          //  fontSize: 16,
-          //},
-        //},
+        title: {
+          text: "Exhibition Categories Breakdown",
+          left: "center",
+          top: "0%",
+			textStyle: {
+			  fontSize: 10,
+			  fontWeight: 'bold',
+			  color:'#4b5563'
+			},
+        },
         tooltip: {
           trigger: 'item',
           formatter: '{b} : {c} ({d}%)'
@@ -75,7 +77,7 @@ export default {
 	      },
         legend: {
           orient: 'horizontal', // Change to 'horizontal' or 'vertical' as needed
-          top: '0%', // Adjust the top value to move the legend up or down
+          top: '10%', // Adjust the top value to move the legend up or down
           left: 'center', // Center the legend horizontally
           padding: [0, 20], // Add padding around the legend
           textStyle: {

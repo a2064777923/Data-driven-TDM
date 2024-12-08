@@ -18,7 +18,7 @@
 
     <!-- Chart Container -->
     <div class="chart-container" id="chartBox">
-      <div id="chart" style="width:600px; height:250px;"></div>
+      <div id="chart" style="width:600px; height:270px;"></div>
       
 <!-- Overlay toggle checkboxes -->
 <div class="toggle-buttons">
@@ -1961,6 +1961,16 @@ const updateChart = () => {
   }));
   
   const option = {
+	title:{
+		text: 'Hotel Preferences by Tourist Origin',
+		top: '-2%',
+		left: 'center',
+		textStyle: {
+		  fontSize: 10,
+		  fontWeight: 'bold',
+		  color:'#4b5563'
+		},
+	},
     textStyle: {
 	    fontSize: 8, // 可以根据需要调整字体大小
 		color: '#6b7280',
@@ -1999,9 +2009,9 @@ const updateChart = () => {
         fontSize: 8, // 设置图例文字的大小
         color: 'grey', // 设置图例文字的颜色
       },
-      top: '0%',  // Adjust this value to move the legend up or down
+      top: '3%',  // Adjust this value to move the legend up or down
     },
-    grid: { left: '3%', right: '4%', bottom: '5%', top: '4%', containLabel: true },
+    grid: { left: '3%', right: '4%', bottom: '5%', top: '10%', containLabel: true },
     xAxis: { 
       type: 'value',
       name: 'Person-Time',

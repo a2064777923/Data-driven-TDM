@@ -12,7 +12,7 @@ const dateData = reactive<DateDataType>({
 });
 
 const { setSettingShow} =useSettingStore()
-const weekday= ["Sun", "Mon", "Tue", "Wed", "Thur", "Fir", "Sat"]
+const weekday= ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"]
 const timeFn = () => {
   dateData.timing = setInterval(() => {
     dateData.dateDay = dayjs().format("YYYY-MM-DD hh : mm : ss");

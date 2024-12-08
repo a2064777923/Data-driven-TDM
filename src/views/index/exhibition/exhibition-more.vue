@@ -1,12 +1,12 @@
 <template>
   <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick">
-    <el-tab-pane label="Numbers" name="first">
+    <el-tab-pane label="Trends" name="first">
 		<Number v-if="activeName === 'first'"/>
 	</el-tab-pane>
-    <el-tab-pane label="Subject" name="second">
+    <el-tab-pane label="Industry Breakdown" name="second">
 		<Subject v-if="activeName === 'second'"/>
 	</el-tab-pane>
-    <el-tab-pane label="2 plus 2" name="third">
+    <el-tab-pane label="Visitor and Exhibitor Data" name="third">
 		<TwoPlusTwo v-if="activeName === 'third'"/>
 	</el-tab-pane>
   </el-tabs>

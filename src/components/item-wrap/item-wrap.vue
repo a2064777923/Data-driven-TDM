@@ -16,9 +16,12 @@ const props = withDefaults(
 <template>
   <BorderBox8 :color="['orange','yellow']" backgroundColor="rgba(186, 230, 253, 0.8)">
     <div class="item_title" v-if="title !== ''">
-      <div class="zuo"></div>
+      
       <span class="title-inner"> &nbsp;&nbsp;{{ title }}&nbsp;&nbsp; </span>
+	  <!--
+	  <div class="zuo"></div>
       <div class="you"></div>
+	  -->
     </div>
     <div
       :class="title !== '' ? 'item_title_content' : 'item_title_content_def'"
@@ -56,6 +59,7 @@ $item_title_content-height: calc(100% - 38px);
   .title-inner {
     font-weight: 900;
     letter-spacing: 2px;
+
     background: linear-gradient(
       92deg,
       #262626 0%,

@@ -94,6 +94,16 @@ const setOption = () =>{
 		});
 	});
 	option.value = {
+		title: {
+		  text: "Ports of Entry and Exit",
+		  left: "center",
+		  top: "-2%",
+			textStyle: {
+			  fontSize: 10,
+			  fontWeight: 'bold',
+			  color:'#4b5563'
+			},
+		},
 		textStyle: {
 		    fontSize: 7 // 可以根据需要调整字体大小
 		},

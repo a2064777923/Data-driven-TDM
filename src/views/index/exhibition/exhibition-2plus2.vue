@@ -9,7 +9,7 @@
     <el-row class="row">
       <el-col :span="12">
         <div class="chart-container">
-          <div class="chart-title">Exhibitors by Gov/Non-Gov</div>
+          <div class="chart-title">Gov/ Non-Gov Exhibitor</div>
           <div ref="lineChartExhibitorsGov" class="chart"></div>
         </div>
       </el-col>
@@ -24,7 +24,7 @@
     <el-row class="row">
       <el-col :span="12">
         <div class="chart-container">
-          <div class="chart-title">Professional Visitors by Gov/Non-Gov</div>
+          <div class="chart-title">Professional Visitors to Gov/ Non-Gov Exhibitions</div>
           <div ref="lineChartVisitorsGov" class="chart"></div>
         </div>
       </el-col>

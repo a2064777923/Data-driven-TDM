@@ -73,7 +73,7 @@ const renderChart = () =>{
 		  fontSize: 8
 	  },
 	  title: {
-	    text: 'VISITORS SATISFACTORY LEVEL',
+	    text: 'Trends in Visitor Satisfaction Across Various Sectors (2018–2022)',
 	    top: '0%',
 	    left: 'center',
 	    textStyle: {
